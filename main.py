@@ -120,5 +120,5 @@ def predict_cluster(document,client):
         return("PASS A LIST OF REVIEWS") #-->testing
 
 
-if __name__ == '__main__':
-    uvicorn.run(app, host='127.0.0.1', port = 8000)
+# if __name__ == '__main__':
+#     uvicorn.run(app, host='127.0.0.1', port = 8000)
