@@ -1,5 +1,0 @@
-* Tags in list, to be processed to extract keywords
-* Using comments and reviews to mark extracted tags as +ve or -ve and 
-extract more keywords (repeated)
-* Remove reduntant reviews and images to support customers
-* Develop and deploy API form of code onto Heroku
