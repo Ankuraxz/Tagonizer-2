@@ -3,3 +3,5 @@ azure-ai-textanalytics
 azure-cognitiveservices-language-textanalytics==0.2.0
 azure-ai-textanalytics --pre
 time
+nltk
+itertools

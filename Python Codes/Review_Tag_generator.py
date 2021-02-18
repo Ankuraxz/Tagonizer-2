@@ -86,4 +86,5 @@ for ix in comment3:
 # print("..............................................")
 # Arranging reviews based on their occurence
 tags = {k: v for k, v in sorted(reviews.items(), key=lambda item: item[1],reverse=True)}
+print(tags)
 print(list(tags.items())[:10]) #top 10 tags
