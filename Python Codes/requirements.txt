@@ -5,3 +5,4 @@ azure-ai-textanalytics --pre
 time
 nltk
 itertools
+difflib

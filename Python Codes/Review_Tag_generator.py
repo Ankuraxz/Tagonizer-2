@@ -86,5 +86,34 @@ for ix in comment3:
 # print("..............................................")
 # Arranging reviews based on their occurence
 tags = {k: v for k, v in sorted(reviews.items(), key=lambda item: item[1],reverse=True)}
-print(tags)
+# print(tags)
+# print(list(tags.items())[:10]) #top 10 tags
+
+# Unique Tag Extraction
+from difflib import SequenceMatcher
+#updated_tag={}
+keys = tags.keys()
+
+s = SequenceMatcher(None)
+# print(keys)
+reduntant=[]
+limit = 0.60
+for key in keys:
+    s.set_seq2(key)
+    for iy in keys:
+        # wordx = key
+        # wordy = iy
+        s.set_seq1(iy)
+        if key != iy: # Not The same words
+            if (s.ratio()>=limit and len(s.get_matching_blocks())==2): #matched word
+                reduntant.append(iy)
+# print(keys)
+# print(">>>>>>>>>>>>>>>>>>>>>>>>")
+for ix in reduntant:
+    # print(ix)
+    tags.pop(ix)
+
+# print(tags)
+
+# Return top 10 tags
 print(list(tags.items())[:10]) #top 10 tags
