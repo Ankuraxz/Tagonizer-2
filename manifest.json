@@ -1,0 +1,12 @@
+{"manifest_version": 2,
+ 
+"name": "Web Content Scrapper",
+"version": "0.1.0",
+"description": "demo extension",
+
+"content_scripts": [{
+ 
+  "js": ["content.js"],
+  "matches": ["https://www.amazon.in/*"]
+}]
+}
