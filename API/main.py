@@ -5,6 +5,7 @@ import re
 import itertools
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from difflib import SequenceMatcher
 import os
@@ -13,7 +14,22 @@ key1 = os.environ["KEY"]
 ep = os.environ["ENDPOINT"]
 loc = os.environ["LOCATION"]
 
-app = FastAPI()
+app = FastAPI(
+    title="Tagonizer",
+    description="API for Tagonizer",
+    version="0.1.0",
+    openapi_url="/api/v0.1.0/openapi.json",
+    docs_url="/",
+    redoc_url=None,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class data(BaseModel):
     comments: List[str] = Query(...)
@@ -75,9 +91,6 @@ def sentiment_analysis_with_opinion_mining_example(documents,client):
 
     return j
 
-@app.get('/')
-def index():
-    return {'message': 'TAGONIZER'}
 
 
 @app.post('/predict',  status_code=status.HTTP_201_CREATED)
