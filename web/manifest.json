@@ -1,0 +1,31 @@
+{"manifest_version": 2,
+ 
+"name": "Tagonizer",
+"version": "0.1.0",
+"description": "demo extension",
+
+"permissions": [
+  "tabs",
+  "notifications",
+  "storage",
+  "https://www.amazon.in/*"],
+  "content_scripts": [{
+ 
+    "js": ["content.js"],
+    "matches": ["https://www.amazon.in/*"]
+  }],
+
+"background" : {
+  "scripts" : ["background.js" ],
+  "persistent": false
+},
+
+"browser_action" : {
+  "default_icon": "T-logo.png",
+  "default_popup": "pop_up/popup.html",
+  "default_title": "a popup will come here"
+ 
+}
+
+}
+
