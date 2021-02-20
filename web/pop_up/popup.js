@@ -12,20 +12,38 @@
 // }
 
 // let text = "jbhjhj hghjvghc hvgfy hgvyfy jbjkbjkdkw hknkqsnkjqwbbdjwdb kdbwjkjbd";
-// document.getElementById(content).innerHTML(`<p> ${text.substring(100)} ...<p> ` )
+// let newText = text.split(" ").splice(0,6).join(" ");
+// // let remaining = text.split(" ").splice(6).join(" ");
+// // console.log(remaining)
+// let content = `<p>${newText}<span id='points'>...</span> </p>   `;
+// document.getElementById("box").innerHTML= content;
+
+
+// document.getElementById("points").addEventListener("click", function(){
+//     document.getElementById("box").innerHTML= text + "<span id='less'>...</span>";
+
+// })
+
+// document.getElementById("less").addEventListener("click", function(){
+//     document.getElementById("box").innerHTML= content;
+
+// })
 
 var foo = localStorage.getItem("data");
 // console.log(foo);
 
 var review = localStorage.getItem("reviews");
 review = JSON.parse(review)
-
+localStorage.clear();
 
 data = JSON.parse(foo);
 // console.log(data);
 // console.log("running")
 document.getElementById("tags").addEventListener("click" , tags);
 document.getElementById("reviews").addEventListener("click" , reviews);
+
+
+
 
 function tags(){
     let p ="";

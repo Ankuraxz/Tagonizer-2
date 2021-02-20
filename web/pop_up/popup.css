@@ -23,7 +23,17 @@ body{
 .heading{
     font-family: 'Rouge Script', cursive;
     font-size: 30px;
-    color:#C51B1B;
+    color: #000000;
+   
+    -webkit-text-stroke: 0.01px #C51B1B;
+    -webkit-text-fill-color:#000000 ;
+    float:left;
+}
+
+.heading img{
+    width:30px;
+    height:30px;
+    margin-right: 10px;
 }
 
 .card-body{
