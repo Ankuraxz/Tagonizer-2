@@ -117,6 +117,7 @@ async def predict(data: data):
         
         tags = {k: v for k, v in sorted(reviews.items(), key=lambda item: item[1],reverse=True)}
         keys = tags.keys()
+        reviews.clear()
 
         s = SequenceMatcher(None)
         # print(keys)
