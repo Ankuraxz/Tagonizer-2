@@ -3,6 +3,7 @@ from fastapi import FastAPI, Query, status
 from typing import List
 import re
 import itertools
+# import uvicorn
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 from fastapi.middleware.cors import CORSMiddleware
@@ -51,8 +52,8 @@ def authenticate_client():
 
 
 
-reviews ={}
-def sentiment_analysis_with_opinion_mining_example(documents,client):
+
+def sentiment_analysis_with_opinion_mining_example(documents,client,reviews):
     j = None
 
     result = client.analyze_sentiment(documents, show_opinion_mining=True)
@@ -89,13 +90,14 @@ def sentiment_analysis_with_opinion_mining_example(documents,client):
                     reviews.update({str(aspect.text).lower():(count,str(aspect.sentiment),opinions)})
 
 
-    return j
+    return j,reviews
 
 
 
 @app.post('/predict',  status_code=status.HTTP_201_CREATED)
 async def predict(data: data):
     tags = {}
+    reviews={}
     
     if type(data.comments)==list:
         # print("got_list")
@@ -109,10 +111,10 @@ async def predict(data: data):
             
             if len(ix) >=5000:
                 documents.append(ix[:5000]) #Limiting 5000 chars
-                docSentiment[k] = sentiment_analysis_with_opinion_mining_example(documents,client)
+                docSentiment[k],reviews = sentiment_analysis_with_opinion_mining_example(documents,client,reviews)
             else:
                 documents.append(ix)
-                docSentiment[k] = sentiment_analysis_with_opinion_mining_example(documents,client)
+                docSentiment[k],reviews = sentiment_analysis_with_opinion_mining_example(documents,client,reviews)
             k+=1
         
         tags = {k: v for k, v in sorted(reviews.items(), key=lambda item: item[1],reverse=True)}
@@ -166,4 +168,7 @@ async def predict(data: data):
 
     else:
         return("PASS A LIST OF REVIEWS") #-->testing
+
+# if __name__ == '__main__':
+#      uvicorn.run(app, host='127.0.0.1', port = 8000)
 
