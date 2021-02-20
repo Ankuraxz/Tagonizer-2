@@ -95,6 +95,7 @@ def sentiment_analysis_with_opinion_mining_example(documents,client):
 
 @app.post('/predict',  status_code=status.HTTP_201_CREATED)
 async def predict(data: data):
+    tags = {}
     
     if type(data.comments)==list:
         # print("got_list")
