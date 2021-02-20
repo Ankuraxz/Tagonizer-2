@@ -1,33 +1,22 @@
-// data = {
-//     reviews:{
-//         "A is the lkfdsdjlfa":1,
-//         "B sdjflsjflsjfls  sfs":2,
-//         "C sfjhiofjilfjfi  s ilh":0
-//     },
-//     tags:{
-//         "D dsfsgdnggsfgdgdf":1,
-//         "E dsfsdgfdfs":0,
-//         "F fsddfghgsegh":2
-//     }
-// }
+let work =true;
+function callback(tabs) {
+    var currentTab = tabs[0].url; 
+  
+  if(!currentTab.startsWith("https://www.amazon.in/")){
+      document.getElementsByClassName("loader")[0].style.display="none";
+      document.getElementsByClassName("invalid")[0].style.display="block";
+      work = false;
+  }
 
-// let text = "jbhjhj hghjvghc hvgfy hgvyfy jbjkbjkdkw hknkqsnkjqwbbdjwdb kdbwjkjbd";
-// let newText = text.split(" ").splice(0,6).join(" ");
-// // let remaining = text.split(" ").splice(6).join(" ");
-// // console.log(remaining)
-// let content = `<p>${newText}<span id='points'>...</span> </p>   `;
-// document.getElementById("box").innerHTML= content;
+  else{
+    document.getElementsByClassName("loader")[0].style.display="block";
+    document.getElementsByClassName("invalid")[0].style.display="none";
+    work = true;
+  }
+  }
+  let query = { active: true, currentWindow: true };
 
 
-// document.getElementById("points").addEventListener("click", function(){
-//     document.getElementById("box").innerHTML= text + "<span id='less'>...</span>";
-
-// })
-
-// document.getElementById("less").addEventListener("click", function(){
-//     document.getElementById("box").innerHTML= content;
-
-// })
 
 var foo = localStorage.getItem("data");
 // console.log(foo);
@@ -43,10 +32,25 @@ document.getElementById("reviews").addEventListener("click" , reviews);
 
 
 
+document.onreadystatechange = function () {
+    var state = document.readyState
+   chrome.tabs.query(query, callback);
+  document.getElementById('main').style.display="none";
+  document.getElementById('home').style.display="block";
+         
+ if(work && data!==null){
+        setTimeout(function(){
+           document.getElementById('home').style.display="none";
+           document.getElementById('main').style.display="block";
+           tags();
+        },5000);
+    }
+    
+  }
+
+
 function tags(){
-    if(data == null){
-        // document.getElementById("out").innerHTML="Loding...";
-    }else{
+
         let p ="";
         let n ="";
         let m ="";
@@ -85,15 +89,7 @@ function tags(){
                 document.getElementById("mixed").insertAdjacentHTML('beforeend',m);
             }
         });
-    }
-    //   console.log(n);
-    //   let s="<div class='card-footer'>Positive</div>";
-    //   s += p;
-    //   s += "<br>Moderate<br>";
-    //   s += m;
-    //   s += "<br>Negative<br>";
-    //   s += n;
-    //   document.getElementById("out").innerHTML = s;
+   
 }
 
 function reviews(){
@@ -111,23 +107,40 @@ function reviews(){
    
         let val = data.reviews[key];
         let divId = "review"+key;
-         let trimmedText = review[key].split(" ").splice(0,8).join(" ");
+         let trimmedText = review[key].split(" ").splice(0,10).join(" ");
         // let remainingString = review[key].split(" ").splice(6).join()
         if(val==0){
             n = "<div  id=";
             n+=divId;
             n+= " class='review-div negative'>";
             n += trimmedText;
-            n += "<span >...</span></div>";
+            n += "</div>";
+
+           
        
             if(document.getElementById("negative").innerHTML===""){
                 document.getElementById("negative").insertAdjacentHTML('beforeend',"<h6>Negative Reviews</h6>");
             }
 
            document.getElementById("negative").insertAdjacentHTML('beforeend',n);
-           console.log(document.getElementById(divId));
+           if(review[key].length > 10){
+            document.getElementById(divId).insertAdjacentHTML('beforeend',"<span>...</span>")
+        }
+          
             document.getElementById(divId).addEventListener("click" , function(){
-                document.getElementById(divId).innerText= review[key];
+                this.classList.toggle("show");
+                if(this.classList.contains("show")){
+                    this.innerText= review[key];
+                }
+
+                else{
+                    let prevValue = review[key].split(" ").splice(0,10).join(" ");
+                    this.innerText= prevValue;
+                    if(review[key].length > 10){
+                        this.insertAdjacentHTML('beforeend',"<span>...</span>")
+                    }
+                }
+              
             })
 
            
@@ -143,8 +156,22 @@ function reviews(){
             }
 
             document.getElementById("positive").insertAdjacentHTML('beforeend',p);
+            if(review[key].length > 10){
+                document.getElementById(divId).insertAdjacentHTML('beforeend',"<span>...</span>")
+            }
             document.getElementById(divId).addEventListener("click" , function(){
-                document.getElementById(divId).innerText= review[key];
+                this.classList.toggle("show");
+                if(this.classList.contains("show")){
+                    this.innerText= review[key];
+                }
+
+                else{
+                    let prevValue = review[key].split(" ").splice(0,10).join(" ");
+                    this.innerText= prevValue;
+                    if(review[key].length > 10){
+                        this.insertAdjacentHTML('beforeend',"<span>...</span>")
+                    }
+                }
             })
 
         }else{
@@ -158,17 +185,30 @@ function reviews(){
                 document.getElementById("mixed").insertAdjacentHTML('beforeend',"<h6>Moderate Reviews</h6>");
             }
             document.getElementById("mixed").insertAdjacentHTML('beforeend',m);
+            if(review[key].length > 10){
+                document.getElementById(divId).insertAdjacentHTML('beforeend',"<span>...</span>")
+            }
 
             document.getElementById(divId).addEventListener("click" , function(){
-                document.getElementById(divId).innerText= review[key];
+                this.classList.toggle("show");
+                if(this.classList.contains("show")){
+                    this.innerText= review[key];
+                }
+
+                else{
+                    let prevValue = review[key].split(" ").splice(0,10).join(" ");
+                    this.innerText= prevValue;
+                    if(review[key].length > 10){
+                        this.insertAdjacentHTML('beforeend',"<span>...</span>")
+                    }
+                }
             })
         }
       });
-    //   s="<div class='card-footer'>Positive</div>";
-    //   s += p;
-    //   s += "<br>Moderate<br>";
-    //   s += m;
-    //   s += "<br>Negative<br>";
-    //   s += n;
-    //   document.getElementById("out").innerHTML = s;
+ 
 }
+
+document.getElementsByClassName("close")[0].addEventListener("click", function(){
+    window.close();
+})
+

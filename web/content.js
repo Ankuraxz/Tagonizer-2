@@ -1,4 +1,4 @@
-console.log("Chrome extension running...");
+
 
 let link = document.querySelector("#reviews-medley-footer a");
 const url = link.href;
@@ -10,7 +10,7 @@ async function getReviews(url) {
 
   let parser = new DOMParser();
   let doc = parser.parseFromString(text, "text/html");
-  //  console.log(doc);
+
   let content = doc.querySelector("#cm_cr-review_list");
   let parent = content.getElementsByClassName("a-section review aok-relative");
 
@@ -23,7 +23,7 @@ async function getReviews(url) {
     arr.push(string.trim());
   }
 
-  console.log(arr);
+
 
   postData(api, arr);
 
@@ -43,7 +43,7 @@ async function postData(url, data) {
   });
 
   const values = await response.json();
-  console.log(values);
+
 
   chrome.runtime.sendMessage({
     data: values, // or whatever you want to send

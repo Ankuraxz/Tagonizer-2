@@ -21,20 +21,22 @@
   </head>
   <body>
     <!-- <img src="../Logo.png"><h1>Tagonizer</h1> -->
-    <!-- <div id="x">
-    <div class="card" id="main">
-      <img src="../Logo.png" id="ilogo"><div class="centert" style="position: relative; top: 20%;     font-family: 'Rouge Script', cursive;
+    
+    <div class="card" id="home" >
+      <button type="button" class="close" style="margin-right: 10px;" >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <img src="../Logo.png" id="ilogo">
+      <div class="centert" style="position: relative; top: 20%;     font-family: 'Rouge Script', cursive;
       font-size: 60px;
-      color: #000000;
-      -webkit-text-stroke: 0.01px #C51B1B;
-      -webkit-text-fill-color:#000000 ;;" >Tagonizer</div><br>
-      <div class="centert" style="position:relative;
-      top:20%">
-          Loading...
-      </div>
-      <div class="card-footer centert" style="position: relative; top: 30%;">Built by Majestic Coders</div>
+    -webkit-text-stroke: 0.01px #C51B1B;
+    -webkit-text-fill-color:#000000 ;" >Tagonizer</div><br>
+     
+
+      <div class="loader">Loading...</div>
+      <div class="invalid">This will run only on Amazon website</div>
     </div>
-    </div> -->
+   
     <div class="card" id="main">
       <div class="card-header">
         <h1 class="heading bold">
@@ -43,7 +45,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
+      <br><br>
       <div class="card-body">
         
         <ul class="nav nav-fill">
@@ -56,13 +58,14 @@
         </ul>
          <div id="out">
          <div id="positive"></div>
-         <div id="negative">  </div>
-         <div id="mixed">  </div>
+         <div id="negative"></div>
+         <div id="mixed"></div>
         </div>
       </div>
-
-      <div class="card-footer centert">Built by Majestic Coders</div>
+      <br>
+     
     </div>
+    <div class="card-footer centert" >Built by Majestic Coders</div>
     <script src="popup.js"></script>
   </body>
 </html>
