@@ -32,21 +32,21 @@ document.getElementById("reviews").addEventListener("click" , reviews);
 
 
 
-document.onreadystatechange = function () {
-    var state = document.readyState
+//document.onreadystatechange = function () {
+    
    chrome.tabs.query(query, callback);
   document.getElementById('main').style.display="none";
   document.getElementById('home').style.display="block";
          
- if(work && data!==null){
+ if(work && data!=null){
         setTimeout(function(){
            document.getElementById('home').style.display="none";
            document.getElementById('main').style.display="block";
            tags();
-        },5000);
+        },1000);
     }
     
-  }
+ // }
 
 
 function tags(){
@@ -123,7 +123,7 @@ function reviews(){
             }
 
            document.getElementById("negative").insertAdjacentHTML('beforeend',n);
-           if(review[key].length > 10){
+           if(review[key].split(" ").length > 10){
             document.getElementById(divId).insertAdjacentHTML('beforeend',"<span>...</span>")
         }
           
@@ -136,7 +136,7 @@ function reviews(){
                 else{
                     let prevValue = review[key].split(" ").splice(0,10).join(" ");
                     this.innerText= prevValue;
-                    if(review[key].length > 10){
+                    if(review[key].split(" ").length > 10){
                         this.insertAdjacentHTML('beforeend',"<span>...</span>")
                     }
                 }
@@ -149,14 +149,14 @@ function reviews(){
             p +=divId;
             p += " class='review-div positive'>";
             p += trimmedText;
-            p += "<span >...</span></div>";
+            p += "</div>";
 
             if(document.getElementById("positive").innerHTML===""){
                 document.getElementById("positive").insertAdjacentHTML('beforeend',"<h6>Positive Reviews</h6>");
             }
 
             document.getElementById("positive").insertAdjacentHTML('beforeend',p);
-            if(review[key].length > 10){
+            if(review[key].split(" ").length > 10){
                 document.getElementById(divId).insertAdjacentHTML('beforeend',"<span>...</span>")
             }
             document.getElementById(divId).addEventListener("click" , function(){
@@ -168,7 +168,7 @@ function reviews(){
                 else{
                     let prevValue = review[key].split(" ").splice(0,10).join(" ");
                     this.innerText= prevValue;
-                    if(review[key].length > 10){
+                    if(review[key].split(" ").length > 10){
                         this.insertAdjacentHTML('beforeend',"<span>...</span>")
                     }
                 }
@@ -179,13 +179,13 @@ function reviews(){
             m +=divId;
            m += " class='review-div mixed'>";
             m += trimmedText;
-            m += "<span >...</span></div>";
+            m += "</div>";
 
             if(document.getElementById("mixed").innerHTML===""){
                 document.getElementById("mixed").insertAdjacentHTML('beforeend',"<h6>Moderate Reviews</h6>");
             }
             document.getElementById("mixed").insertAdjacentHTML('beforeend',m);
-            if(review[key].length > 10){
+            if(review[key].split(" ").length > 10){
                 document.getElementById(divId).insertAdjacentHTML('beforeend',"<span>...</span>")
             }
 
@@ -198,7 +198,8 @@ function reviews(){
                 else{
                     let prevValue = review[key].split(" ").splice(0,10).join(" ");
                     this.innerText= prevValue;
-                    if(review[key].length > 10){
+                    console.log()
+                    if(review[key].split(" ").length > 10){
                         this.insertAdjacentHTML('beforeend',"<span>...</span>")
                     }
                 }
@@ -209,6 +210,10 @@ function reviews(){
 }
 
 document.getElementsByClassName("close")[0].addEventListener("click", function(){
+    window.close();
+})
+
+document.getElementsByClassName("cross")[0].addEventListener("click", function(){
     window.close();
 })
 
