@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TAGONIZER</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        .main{
-            width: 400px;
-            height: 500px;
-        }
-        .centert{
-            text-align: center;
-        }
-        .bold{
-            font-weight: bold;
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="card" id="main">
+      <div class="card-header">
+        <h1 class="heading centert bold">Tagonizer</h1>
+      </div>
+      <!-- <hr> -->
 
-        }
-        
-    </style>
+      <div class="card-body">
+        <ul class="nav nav-fill">
+          <li class="nav-item">
+            <a class="nav-link active" id="tags" href="#">Tags</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="reviews" href="#">Reviews</a>
+          </li>
+        </ul>
+        <div id="out"></div>
+      </div>
 
-
-    
-</head>
-<body>
-   
-    <div class="main" id="main">
-        <div class="centert bold" style="font-size: 20px;">Tagonizer</div>
-        <hr>
-        <button style="float: left; width: 50%;" id="tags">Tags</button>
-        <button style="float: right; width: 50%;" id="reviews">Reviews</button>
-        <br><br>
-        <div id="out">
-        </div>
+      <div class="card-footer centert">Built by Majestic Coders</div>
     </div>
-    <script src= "popup.js"></script>
-</body>
+    <script src="popup.js"></script>
+  </body>
 </html>

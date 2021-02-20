@@ -21,7 +21,7 @@
 },
 
 "browser_action" : {
-  "default_icon": "T-logo.png",
+  "default_icon": "Logo.png",
   "default_popup": "pop_up/popup.html",
   "default_title": "a popup will come here"
  

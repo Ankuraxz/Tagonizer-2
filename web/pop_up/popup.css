@@ -1,0 +1,48 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.card{
+    width: 400px;
+    height: 500px;
+    border: none;
+}
+
+.card-header, .card-footer{
+    background-color: inherit;
+    border:none;
+}
+.centert{
+    text-align: center;
+}
+.bold{
+    font-weight: bold;
+
+}
+
+.heading{
+    font-family: 'Rouge Script', cursive;
+    font-size: 30px;
+    color:#C51B1B;
+}
+
+.card-body{
+    padding-top: 0;
+}
+.card-footer{
+ 
+   font-size: 14px;
+    color: #9D9191;
+}
+
+.nav{
+    border-top: 1px solid rgba(0,0,0,.125);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.tags{
+    padding: 5px 10px ;
+    margin: 5px;
+}
+
+
