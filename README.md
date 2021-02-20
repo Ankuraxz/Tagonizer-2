@@ -40,6 +40,35 @@ Customers write product reviews on ecommerce websites like Amazon. Amazon proces
 + Microsoft Azure ☁️
 + HTML, CSS & JS 
 
+## Running Tagonizer Locally 
+
+#### Backend 
+
+1. First Clone the repository. 
+```bash
+$ git clone https://github.com/Ankuraxz/Tagonizer.git
+```
+2. Navigate into Cloned Repository. 
+```bash 
+$ cd Tagonizer
+```
+3. Create Virtual Environment and Using it. 
+```bash 
+$ python -m venv venv/
+$ $ source venv/bin/activate
+```
+4. Install Requirements
+```bash 
+$ pip install -r requirements.txt
+```
+5. [Create an Azure resource](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-call-api) for Text Analytics. Afterwards, [get the key](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-call-api) generated for you to authenticate your requests.
+6. Set Environment Variable `KEY`, `ENDPOINT`, `LOCATION` with secret token/key, endpoint/base-url and location of resource respectively. 
+7. Run the following command to start backend at `http://localhost:8000/`
+```bash
+$ uvicorn API.main:app --reload --host=0.0.0.0 --port=8000
+```
+8. Open `http://localhost:8000/` in browser of your choice. You will be greeted with Swagger UI and further details are present there. 
+
 ## LICENSE 
 
 This work is published under MIT License. All right reserved. 
