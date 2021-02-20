@@ -12,6 +12,16 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/ankuraxz/tagonizer/">
+    <img src ="https://img.shields.io/github/issues-raw/Ankuraxz/Tagonizer" alt = "Open Issues">
+    <img src ="https://img.shields.io/github/issues-closed-raw/Ankuraxz/Tagonizer" alt = "Closed Issues">
+    <img src ="https://img.shields.io/github/issues-pr-raw/Ankuraxz/Tagonizer" alt = "Open Pull Requests">
+    <img src ="https://img.shields.io/github/issues-pr-closed/Ankuraxz/Tagonizer" alt = "Closed Pull Requests">
+  </a>
+ </p>
+    
+
 ## Problem Statement 
 Customers write product reviews on ecommerce websites like Amazon. Amazon processes the reviews to generate commonly occurring tags. But, there exist multiple tags referring to the same thing. The Auto-generated Tags from customer Reviews are pointless and repeating like battery, battery life, battery performance etc. Reviews are not well classified as positive or negative, and same goes with tags/comments
 
