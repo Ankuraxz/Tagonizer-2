@@ -1,7 +1,14 @@
 <p align="center">
   <a href="https://github.com/ankuraxz/tagonizer/">
-    <img src="https://raw.githubusercontent.com/ankuraxz/tagonizer/master/logo.png" alt="Tagonizer" width="150" height="150"> 
+    <img src="https://raw.githubusercontent.com/ankuraxz/tagonizer/main/logo.png" alt="Tagonizer" width="150" height="150"> 
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/ankuraxz/tagonizer/">
    <img src="https://madewithlove.now.sh/in?heart=true&colorA=%23ff0000&colorB=%23050505&template=plastic" alt="Made with love in India">
+    <img alt="GitHub" src="https://img.shields.io/github/license/ankuraxz/tagonizer?style=plastic">
+    <img src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by%20-Majestic%20Coders-red&template=plastic">
   </a>
 </p>
 
