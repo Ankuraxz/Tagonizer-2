@@ -50,9 +50,50 @@ body{
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
-.tags{
-    padding: 5px 10px ;
+.tags {
+    padding: 10px 10px;
     margin: 5px;
+    border: 1.5px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+#ilogo{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    left: 35%;
+    top:20%;
 }
 
+.review-div{
+    margin:5px;
+    color:#fff;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+  
+    vertical-align: baseline;
+    border-radius: .25rem;
+    border: 1.5px solid #000000;
+box-sizing: border-box;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
 
+.review-div h6{
+    color: gray;
+}
+
+#positive, #negative, #mixed{
+    padding:10px 0;
+}
+.review-div.positive{
+    background-color:#28a745 ;
+}
+
+.review-div.negative{
+    background-color: #EB4343;
+}
+
+.review-div.mixed{
+    background-color: #FFC107;
+}
