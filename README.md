@@ -27,7 +27,7 @@ Customers write product reviews on ecommerce websites like Amazon. Amazon proces
 + FastAPI 
 + Uvicorn 🌏 
 + Heroku 
-+ Microsoft Azure 
++ Microsoft Azure ☁️
 + HTML, CSS & JS 
 
 ## LICENSE 
