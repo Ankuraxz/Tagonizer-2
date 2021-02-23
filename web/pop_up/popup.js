@@ -32,7 +32,7 @@ document.getElementById("reviews").addEventListener("click" , reviews);
 
 
 
-//document.onreadystatechange = function () {
+document.onreadystatechange = function () {
     
    chrome.tabs.query(query, callback);
   document.getElementById('main').style.display="none";
@@ -46,7 +46,7 @@ document.getElementById("reviews").addEventListener("click" , reviews);
         },1000);
     }
     
- // }
+  }
 
 
 function tags(){
