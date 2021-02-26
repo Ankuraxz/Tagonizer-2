@@ -191,7 +191,24 @@ def tagger(url, client):
     return tags
 
 
-@app.post('/image', status_code=status.HTTP_201_CREATED)
+@app.post('/image', status_code=status.HTTP_201_CREATED,
+          responses={
+              201: {
+                  "description": "All Analytics Logs",
+                  "content": {
+                      "application/json": {
+                          "example": {
+                              "Images": [
+                                "Link for 1st Image",
+                                "Link for 2nd Image",
+                                "Link for nth Image"
+                              ]
+                          }
+                      }
+                  },
+              },
+          },
+          )
 async def predict_image(data: Vision):
     if type(data.seller_img) == list and type(data.customer_img) == list:
         s_tags_set = set()
