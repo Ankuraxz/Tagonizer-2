@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from difflib import SequenceMatcher
 import os
-#import uvicorn
+# import uvicorn
 import urllib.request
 from PIL import Image
 
@@ -21,7 +21,6 @@ loc = os.environ["LOCATION"]
 KEY = os.environ["VKEY"]
 ENDPOINT = os.environ["VENDPOINT"]
 LOCATION = os.environ["LOCATION"]
-
 
 app = FastAPI(
     title="Tagonizer",
@@ -57,6 +56,7 @@ def cleaner(comments):
         ix = ix.lower()
         document.append(ix)
     return document
+
 
 def authenticate_client():
     ta_credential = AzureKeyCredential(key1)
@@ -195,12 +195,17 @@ def tagger(url, client):
 
 def size_check(url):
     img = Image.open(urllib.request.urlopen(url))
-    w,h = img.size
-#     print(w,h)
-    if w>= 50 and h>=50 :
+    w, h = img.size
+    #     print(w,h)
+    if w >= 50 and h >= 50:
         return True
     else:
         return False
+
+
+def url_cleaner(url):
+    id = url[49:].split(".")[0]
+    return (url[:49] + id + ".jpg")
 
 
 @app.post('/image', status_code=status.HTTP_201_CREATED,
@@ -211,9 +216,9 @@ def size_check(url):
                       "application/json": {
                           "example": {
                               "Images": [
-                                "Link for 1st Image",
-                                "Link for 2nd Image",
-                                "Link for nth Image"
+                                  "Link for 1st Image",
+                                  "Link for 2nd Image",
+                                  "Link for nth Image"
                               ]
                           }
                       }
@@ -230,25 +235,25 @@ async def predict_image(data: Vision):
         computervision_client = ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
         for ix in data.seller_img:
-           if size_check(ix):
-                s_tags = tagger(ix, computervision_client)
-                for iw in s_tags:
-                    iw = iw.lower()
-                    s_tags_set.add(iw)
+            ix = url_cleaner(ix)
+            s_tags = tagger(ix, computervision_client)
+            for iw in s_tags:
+                iw = iw.lower()
+                s_tags_set.add(iw)
 
         for iy in data.customer_img:
-            if size_check(iy):
-                c_tags = tagger(iy, computervision_client)
+            iy = url_cleaner(iy)
+            c_tags = tagger(iy, computervision_client)
 
-                for iz in c_tags:
-                    iz = iz.lower()
-                    if iz in s_tags_set:
-                        good_images.append(iy) #iy is image link
-                        break
-        
-        if len(good_images) ==0:
+            for iz in c_tags:
+                iz = iz.lower()
+                if iz in s_tags_set:
+                    good_images.append(iy)  # iy is image link
+                    break
+
+        if len(good_images) == 0:
             good_images = data.seller_img
-            
+
         docResult = {
             "Images": good_images
         }
@@ -256,4 +261,4 @@ async def predict_image(data: Vision):
         return docResult
 
     else:
-        return ("PASS A LIST OF IMAGES")  # -->testing
+        return "PASS A LIST OF IMAGES"  # -->testing
