@@ -258,10 +258,9 @@ async def predict_image(data: Vision):
                 s_tags_set.add(iw)
 
         for iy in data.customer_img:
-            if "gif" in iy:
-                raise UnicornException(name="GIF")
-            iy = url_cleaner(iy)
-            c_tags = tagger(iy, computervision_client)
+            if "jpg" in iy:
+                iy = url_cleaner(iy)
+                c_tags = tagger(iy, computervision_client)
 
             for iz in c_tags:
                 iz = iz.lower()
