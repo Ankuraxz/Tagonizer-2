@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query, status
+from fastapi import FastAPI, Query, status, Request
 from typing import List
 import re
 import itertools
@@ -7,6 +7,7 @@ from msrest.authentication import CognitiveServicesCredentials
 from azure.ai.textanalytics import TextAnalyticsClient
 from azure.core.credentials import AzureKeyCredential
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from difflib import SequenceMatcher
 import os
@@ -40,6 +41,11 @@ app.add_middleware(
 )
 
 
+class UnicornException(Exception):
+    def __init__(self, name: str):
+        self.name = name
+
+
 class data(BaseModel):
     comments: List[str] = Query(...)
 
@@ -47,6 +53,16 @@ class data(BaseModel):
 class Vision(BaseModel):
     seller_img: List[str] = Query(...)
     customer_img: List[str] = Query(...)
+
+
+@app.exception_handler(UnicornException)
+async def unicorn_exception_handler(request: Request, exc: UnicornException):
+    return JSONResponse(
+        status_code=418,
+        content={
+            "message": f"Oops! {exc.name} can't be processed. There goes a rainbow..."
+        },
+    )
 
 
 def cleaner(comments):
@@ -242,6 +258,8 @@ async def predict_image(data: Vision):
                 s_tags_set.add(iw)
 
         for iy in data.customer_img:
+            if "gif" in iy:
+                raise UnicornException(name="GIF")
             iy = url_cleaner(iy)
             c_tags = tagger(iy, computervision_client)
 
@@ -257,7 +275,7 @@ async def predict_image(data: Vision):
         smallimg = []
 
         for imgsmall in good_images:
-            smallimg.append(imgsmall[:-4]+".SY400.jpg")
+            smallimg.append(imgsmall[:-4] + ".SY400.jpg")
 
         docResult = {
             "Images": smallimg
