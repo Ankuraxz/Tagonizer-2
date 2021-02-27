@@ -11,9 +11,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from difflib import SequenceMatcher
 import os
-# import uvicorn
 import urllib.request
-from PIL import Image
 
 key1 = os.environ["KEY"]
 ep = os.environ["ENDPOINT"]
@@ -246,6 +244,7 @@ async def predict_image(data: Vision):
     if type(data.seller_img) == list and type(data.customer_img) == list:
         s_tags_set = set()
         good_images = []
+        c_tags=[]
 
         # client
         computervision_client = ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(KEY))
