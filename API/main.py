@@ -10,6 +10,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from difflib import SequenceMatcher
 import os
+#import uvicorn
+import urllib.request
+from PIL import Image
 
 key1 = os.environ["KEY"]
 ep = os.environ["ENDPOINT"]
@@ -54,7 +57,6 @@ def cleaner(comments):
         ix = ix.lower()
         document.append(ix)
     return document
-
 
 def authenticate_client():
     ta_credential = AzureKeyCredential(key1)
@@ -191,6 +193,16 @@ def tagger(url, client):
     return tags
 
 
+def size_check(url):
+    img = Image.open(urllib.request.urlopen(url))
+    w,h = img.size
+#     print(w,h)
+    if w>= 50 and h>=50 :
+        return True
+    else:
+        return False
+
+
 @app.post('/image', status_code=status.HTTP_201_CREATED,
           responses={
               201: {
@@ -218,20 +230,25 @@ async def predict_image(data: Vision):
         computervision_client = ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
         for ix in data.seller_img:
-            s_tags = tagger(ix, computervision_client)
-            for iw in s_tags:
-                iw = iw.lower()
-                s_tags_set.add(iw)
+           if size_check(ix):
+                s_tags = tagger(ix, computervision_client)
+                for iw in s_tags:
+                    iw = iw.lower()
+                    s_tags_set.add(iw)
 
         for iy in data.customer_img:
-            c_tags = tagger(iy, computervision_client)
+            if size_check(iy):
+                c_tags = tagger(iy, computervision_client)
 
-            for iz in c_tags:
-                iz = iz.lower()
-                if iz in s_tags_set:
-                    good_images.append(iy)  # iy is image link
-                    break
-
+                for iz in c_tags:
+                    iz = iz.lower()
+                    if iz in s_tags_set:
+                        good_images.append(iy) #iy is image link
+                        break
+        
+        if len(good_images) ==0:
+            good_images = data.seller_img
+            
         docResult = {
             "Images": good_images
         }
