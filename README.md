@@ -32,6 +32,12 @@ Customers write product reviews on ecommerce websites like Amazon. Amazon proces
 + Sentiment Analysis: Using Deep Learning to Analyze the Sentiments and Mine opinions from reviews
 + Chrome Extension: Products Chrome Extension that fetches reviews, whenever you visit Amazon and provides you with Tags in an interactive UI
 
+## Demo Video 
+Below is the Demo Video of our Solution located on Youtube.
+
+[![DEMO Video](https://img.youtube.com/vi/c72HItyH1wU/0.jpg)](https://www.youtube.com/watch?v=c72HItyH1wU)
+
+
 ## Technical Details 🧰 
 + Python 🐍 
 + FastAPI 
@@ -39,6 +45,43 @@ Customers write product reviews on ecommerce websites like Amazon. Amazon proces
 + Heroku 
 + Microsoft Azure ☁️
 + HTML, CSS & JS 
+
+## Running Tagonizer Locally 
+
+### Frontend
+
+1. Go to [Release](https://github.com/Ankuraxz/Tagonizer/releases) & Download latest `Tagonizer.zip` file. 
+2. Follow the below Given Illustration for setting up extension on Google Chrome running on MacOS. For other OS, it should be pretty similar. 
+
+![Demo](demo.gif)
+
+### Backend 
+
+1. First Clone the repository. 
+```bash
+$ git clone https://github.com/Ankuraxz/Tagonizer.git
+```
+2. Navigate into Cloned Repository. 
+```bash 
+$ cd Tagonizer
+```
+3. Create Virtual Environment and Activate it. 
+```bash 
+$ python -m venv venv/
+$ source venv/bin/activate
+```
+4. Install Requirements
+```bash 
+$ pip install -r requirements.txt
+```
+5. [Create an Azure resource](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-call-api) for Text Analytics. Afterwards, [get the key](https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/how-tos/text-analytics-how-to-call-api) generated for you to authenticate your requests.
+6. Set Environment Variable `KEY`, `ENDPOINT`, `LOCATION` with secret token/key, endpoint/base-url and location of resource respectively. 
+7. Run the following command to start backend at `http://localhost:8000/`
+```bash
+$ uvicorn API.main:app --reload --host=0.0.0.0 --port=8000
+```
+8. Open `http://localhost:8000/` in browser of your choice. You will be greeted with Swagger UI and further details are present there. 
+
 
 ## LICENSE 
 

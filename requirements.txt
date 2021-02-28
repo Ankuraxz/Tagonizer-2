@@ -1,5 +1,6 @@
 azure-ai-textanalytics==5.1.0b5
 azure-cognitiveservices-language-textanalytics==0.2.0
+azure-cognitiveservices-vision-computervision==0.7.0
 azure-common==1.1.26
 azure-core==1.12.0b1
 certifi==2020.12.5
@@ -12,6 +13,7 @@ isodate==0.6.0
 joblib==1.0.1
 msrest==0.6.21
 oauthlib==3.1.0
+pillow==8.1.0
 pydantic==1.7.3
 regex==2020.11.13
 requests==2.25.1
@@ -20,5 +22,5 @@ six==1.15.0
 starlette==0.13.6
 tqdm==4.57.0
 typing-extensions==3.7.4.3
-urllib3==1.26.3
 uvicorn==0.13.3
+urllib3==1.26.3
