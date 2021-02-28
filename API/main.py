@@ -249,8 +249,10 @@ async def predict_image(data: Vision):
         # client
         computervision_client = ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
+        seller_img_resized=[]
         for ix in data.seller_img:
             ix = url_cleaner(ix)
+            seller_img_resized.append(ix)
             s_tags = tagger(ix, computervision_client)
             for iw in s_tags:
                 iw = iw.lower()
@@ -268,7 +270,7 @@ async def predict_image(data: Vision):
                     break
 
         if len(good_images) == 0:
-            good_images = data.seller_img
+            good_images = data.seller_img_resized
 
 
 
