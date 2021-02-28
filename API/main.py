@@ -11,6 +11,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from difflib import SequenceMatcher
 import os
+import uvicorn
 import urllib.request
 
 key1 = os.environ["KEY"]
@@ -270,7 +271,7 @@ async def predict_image(data: Vision):
                     break
 
         if len(good_images) == 0:
-            good_images = data.seller_img_resized
+            good_images = seller_img_resized
 
 
 
@@ -282,3 +283,7 @@ async def predict_image(data: Vision):
 
     else:
         return "PASS A LIST OF IMAGES"  # -->testing
+
+
+# if __name__ == '__main__':
+#      uvicorn.run(app, host='127.0.0.1', port = 8000)
