@@ -270,13 +270,10 @@ async def predict_image(data: Vision):
         if len(good_images) == 0:
             good_images = data.seller_img
 
-        smallimg = []
 
-        for imgsmall in good_images:
-            smallimg.append(imgsmall[:-4] + ".SY400.jpg")
 
         docResult = {
-            "Images": smallimg
+            "Images": good_images
         }
 
         return docResult
