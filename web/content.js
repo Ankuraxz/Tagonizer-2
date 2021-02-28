@@ -1,8 +1,20 @@
-
-
+let loop = 2;
 let link = document.querySelector("#reviews-medley-footer a");
 const url = link.href;
 let arr = [];
+let sellerImages = [];
+let customerImages = [];
+let imgResponse;
+let api = "https://tagonizer.herokuapp.com";
+
+
+
+const seller = document.querySelectorAll(".imageThumbnail .a-button-text img");
+seller.forEach((ele) =>
+
+  sellerImages.push(ele.getAttribute("src"))
+);
+
 
 async function getReviews(url) {
   const res = await fetch(url);
@@ -16,24 +28,40 @@ async function getReviews(url) {
 
   for (i = 0; i < parent.length; i++) {
     let reviewDiv = parent[i].children[0].children[0];
-
     let child = reviewDiv.children[4].children[0];
     let string = child.innerText.replace(/(\r\n|\n|\r)/gm, "");
-    //arr.push(child.innerText.trim());
     arr.push(string.trim());
   }
 
+  const imgArr = document.querySelectorAll(
+    ".review-image-tile-section .review-image-tile"
+  );
 
-
-  postData(api, arr);
-
+  imgArr.forEach((ele) => {
+    customerImages.push(ele.getAttribute("src"));
+ 
+  });
 
 }
 
-let api = "https://tagonizer.herokuapp.com/predict";
+async function postImage(url) {
+  const res = await fetch(url + "/image", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      seller_img: sellerImages,
+      customer_img: customerImages,
+    }),
+  });
+
+  imgResponse = await res.json();
+
+}
 
 async function postData(url, data) {
-  const response = await fetch(url, {
+  const response = await fetch(url + "/predict", {
     method: "POST",
     mode: "cors",
     headers: {
@@ -46,10 +74,22 @@ async function postData(url, data) {
 
 
   chrome.runtime.sendMessage({
-    data: values, // or whatever you want to send
-    reviews : arr
+    data: values,
+    reviews: arr,
+    images: imgResponse
   });
 }
 
-getReviews(url);
+async function fetchData() {
+  let ans = await getReviews(url);
 
+  console.log(customerImages);
+  console.log(arr);
+
+  postData(api, arr);
+ postImage(api);
+}
+
+document.onreadystatechange = function () {
+  fetchData();
+};

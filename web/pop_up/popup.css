@@ -1,7 +1,94 @@
 
+* {
+	box-sizing: border-box;
+}
 
 body{
     font-family: 'Roboto', sans-serif;
+    background-color: #fafafa;
+    transition: all 0.2s linear;
+}
+body.dark , .card.dark {
+    background-color: #1b1b2f;
+    color:#fff;
+}
+
+body.dark .nav{
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+body.dark .header-dark {
+    text-shadow: 0 1px 0 #fff;
+}
+
+body.dark .close{
+    color:#fff;
+    text-shadow: none;
+}
+
+body.dark .card-footer{
+    color:rgba(255, 255, 255, 0.808)
+}
+
+
+
+body.dark .review-div , body.dark #imgBox .imgDiv{
+    box-shadow: 0px 4px 4px rgba(255, 255, 255, 0.521);
+}
+
+body.dark .tags{
+    box-shadow: 0px 4px 4px rgba(255, 255, 255, 0.521);
+}
+
+
+.label{
+    background-color: #111;
+    border-radius: 50px;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding:5px;
+    position:relative;
+    height:26px;
+    width:50px;
+    padding:5px;
+    margin-right: 10px;
+    float:right;
+
+}
+
+.label .ball{
+    position:absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    top: 2px;
+	left: 2px;
+	height: 22px;
+	width: 22px;
+	transform: translateX(0px);
+	transition: transform 0.2s linear;
+}
+.checkbox:checked + .label .ball {
+    transform: translateX(24px);	
+}
+
+.check:checked + .label .ball{
+    transform: translateX(24px);
+}
+
+.flaticon-moon {
+	color: #f1c40f;
+   
+}
+
+.flaticon-sun {
+	color: #f39c12;
+   
+}
+
+.checkbox , .check{
+    display:none;
 }
 .invalid{
     display: inline-block;
@@ -19,7 +106,28 @@ body{
     overflow-y: auto;
     position:relative;
     display:table;
+    background: inherit;
 }
+
+#imgBox {
+    padding:10px 5px;
+}
+
+#imgBox .imgDiv{
+    display:inline-block;
+    margin:10px;
+    width:150px;
+    height:150px;
+    border: 1.5px solid #000000;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   transform: scale(1);
+}
+.imgDiv img{
+width:100%;
+height:100%;
+}
+
 
 
 .card::-webkit-scrollbar-track
@@ -82,6 +190,7 @@ body{
 
 .card-body{
     padding-top: 0;
+    padding-bottom:0;
 }
 .card-footer{
 
@@ -138,6 +247,7 @@ transition:0.2s all;
 
 #positive, #negative, #mixed{
     padding:10px 0;
+    padding-top: -10px;
 }
 .review-div.positive{
     background-color:#28a745 ;
