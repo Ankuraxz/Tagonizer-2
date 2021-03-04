@@ -12,49 +12,45 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="icons/flaticon.css" />
     <link rel="stylesheet" href="popup.css" />
-    <script src="https://kit.fontawesome.com/d2a636c908.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <!-- <img src="../Logo.png"><h1>Tagonizer</h1> -->
-    
-    <div class="card" id="home" >
-      <input type="checkbox" id="checkbox" class="checkbox" />
-    <label class="label" for="checkbox">
-      <i class="fas fa-moon"></i>
-		<i class="fas fa-sun"></i>
-      <div class="ball"></div>
-    </label>
-      <button type="button" class="close" style="margin-right: 10px;" >
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <img src="../Logo.png" id="ilogo">
-      <div class="centert" style="position: relative; top: 20%;     font-family: 'Rouge Script', cursive;
-      font-size: 60px;
-    -webkit-text-stroke: 0.01px #C51B1B;
-    -webkit-text-fill-color:#000000 ;" >Tagonizer</div><br>
-     
-
-      <div class="loader">Loading...</div>
-      <div class="invalid">This will run only on Amazon website</div>
-    </div>
-   
-    <div class="card" id="main">
+    <div class="card">
       <div class="card-header">
-        <h1 class="heading bold">
-          <img src="../Logo.png" >Tagonizer</h1>
-        <button type="button" class="close cross" >
+        <button type="button" class="close">
           <span aria-hidden="true">&times;</span>
         </button>
+
+        <input type="checkbox" id="checkbox1" class="checkbox" />
+        <label class="label" for="checkbox1">
+          <i class="flaticon-moon"></i>
+          <i class="flaticon-sun"></i>
+          <div class="ball"></div>
+        </label>
       </div>
-      <br><br>
-      <div class="card-body">
-        
+
+      <div class="card-body" id="home">
+        <div class="main-title">
+          <img src="../Logo.png" id="ilogo" />
+          <div class="centert header header-dark">Tagonizer</div>
+          <br />
+          <div class="loader">Loading...</div>
+          <h4 class="invalid">This will run only on Amazon website</h4>
+        </div>
+      </div>
+
+      <div class="card-body" id="main">
+        <h1 class="heading bold header-dark">
+          <img src="../Logo.png" />Tagonizer
+        </h1>
+        <br />
+        <br />
         <ul class="nav nav-fill">
           <li class="nav-item">
             <a class="nav-link active" id="tags" href="#">Tags</a>
@@ -62,17 +58,24 @@
           <li class="nav-item">
             <a class="nav-link" id="reviews" href="#">Reviews</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="images" href="#">Images</a>
+          </li>
         </ul>
-         <div id="out">
-         <div id="positive"></div>
-         <div id="negative"></div>
-         <div id="mixed"></div>
+
+        <div id="imgBox"></div>
+
+        <div id="out">
+          <div id="positive"></div>
+          <div id="negative"></div>
+          <div id="mixed"></div>
         </div>
       </div>
-      <br>
-     
     </div>
-    <div class="card-footer centert" >Built by Majestic Coders</div>
+    <br />
+
+    <!-- </div> -->
+    <div class="card-footer centert">Built by Majestic Coders</div>
     <script src="popup.js"></script>
   </body>
 </html>
