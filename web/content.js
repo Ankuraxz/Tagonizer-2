@@ -52,6 +52,10 @@ async function getReviews(url) {
     console.log(ele.getAttribute("src"));
   });
 
+  imgArr.forEach((ele) => {
+    customerImages.push(ele.getAttribute("src"));
+ 
+  });
 
   postData(api, arr);
  // postImage(api);
@@ -59,7 +63,7 @@ async function getReviews(url) {
 
  
 
-}
+  imgResponse = await res.json();
 
 
 async function postData(url, data ) {
@@ -116,4 +120,4 @@ async function postData(url, data ) {
 
 //}
 
-getReviews(url);
+getReviews(url)

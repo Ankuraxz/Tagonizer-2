@@ -10,6 +10,8 @@ let text = "extension";
 
 const browserData ={} ;
 
+let text = "extension";
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse){
       browserData["data"] = request.data;
