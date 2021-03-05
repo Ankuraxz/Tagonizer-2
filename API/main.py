@@ -22,6 +22,7 @@ KEY = os.environ["VKEY"]
 ENDPOINT = os.environ["VENDPOINT"]
 LOCATION = os.environ["LOCATION"]
 
+
 app = FastAPI(
     title="Tagonizer",
     description="API for Tagonizer",
@@ -120,7 +121,31 @@ def sentiment_analysis_with_opinion_mining_example(documents, client, reviews):
     return j, reviews
 
 
-@app.post('/predict', status_code=status.HTTP_201_CREATED)
+@app.post('/predict', status_code=status.HTTP_201_CREATED,responses={
+              201: {
+                  "description": "Review Analyzer",
+                  "content": {
+                      "application/json": {
+                          "example": {
+                              "Product_Sentiment":[
+                                  "Overall Sentiment 0 --> Negative  1 --> Positive   2 --> Moderate"
+                              ],
+                              "reviews":{
+                                  "Review Number 0": "Sentiment",
+                                  "Review Number 1": "Sentiment",
+                                  "Review Number 2": "Sentiment",
+                              },
+                              "Tags":{
+                                  "Tag 0": "Sentiment",
+                                  "Tag 1": "Sentiment",
+                                  "Tag 2": "Sentiment"
+                              }
+                          }
+                      }
+                  },
+              },
+          })
+
 async def predict(data: data):
     reviews = {}
 
@@ -130,6 +155,7 @@ async def predict(data: data):
         document = cleaner(data.comments)
         client = authenticate_client()
         docSentiment = {}
+        Senti=[]
         k = 0
         for ix in document:
             documents = []
@@ -169,7 +195,6 @@ async def predict(data: data):
         docResult = {
             "Status": "Something Went Wrong"
         }
-
         for t, u in zip(tags.keys(), tags.values()):
             if u[1] == "negative":
                 revResult[t] = 0
@@ -177,13 +202,24 @@ async def predict(data: data):
                 revResult[t] = 1
             else:
                 revResult[t] = 2
+        #print(docSentiment)
+        Senti = list(docSentiment.values())
+        if Senti.count(0) > Senti.count(1):
+            overall = 0 #"Negative"
+        elif Senti.count(1) > Senti.count(0):
+            overall = 1 #"Positive"
+        else:
+            overall = 2 #"Moderate"
+
         if len(revResult.items()) <= 10:
             docResult = {
+                "Product_Sentiment":overall,
                 "reviews": docSentiment,
                 "tags": revResult
             }
         else:
             docResult = {
+                "Product_Sentiment":overall,
                 "reviews": docSentiment,
                 "tags": dict(itertools.islice(revResult.items(), 10))
             }
@@ -202,20 +238,12 @@ def tagger(url, client):
     tags_result_remote = client.tag_image(url)
     if len(tags_result_remote.tags) != 0:
         for tag in tags_result_remote.tags:
-            if tag.confidence >= 0.45:  # Atleast 40% confidence score
+            if tag.confidence >= 0.45:  # Atleast 45% confidence score
                 tags.append(tag.name)
 
     return tags
 
 
-def size_check(url):
-    img = Image.open(urllib.request.urlopen(url))
-    w, h = img.size
-    #     print(w,h)
-    if w >= 50 and h >= 50:
-        return True
-    else:
-        return False
 
 
 def url_cleaner(url):
@@ -226,7 +254,7 @@ def url_cleaner(url):
 @app.post('/image', status_code=status.HTTP_201_CREATED,
           responses={
               201: {
-                  "description": "All Analytics Logs",
+                  "description": "Image Analyzer",
                   "content": {
                       "application/json": {
                           "example": {
