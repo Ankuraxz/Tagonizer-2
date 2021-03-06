@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const stylesMain = {
-  padding: "20px",
-};
-
 const FlexRowWrapper = styled.div`
   display: flex;
   flex-direction: "row";
   align-items: "center";
+  margin-top: 15px;
 `;
 
 const SingleTagWrapper = styled.div`
@@ -18,13 +15,15 @@ const SingleTagWrapper = styled.div`
 `;
 
 const SingleTag = styled.div`
-  border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 7px;
   margin-right: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   padding: 10px;
+  color: white;
   ${(props) =>
-    props.good ? "background-color: green" : "background-color: red"}
+    props.good
+      ? "border: 2px solid #056608; background-color: #8ac24b"
+      : "border: 2px solid #dc143c; background-color: #fc4c4c"};
 `;
 
 function Tags() {
@@ -42,7 +41,7 @@ function Tags() {
   ]);
 
   return (
-    <div style={stylesMain}>
+    <div>
       <FlexRowWrapper>
         <img
           style={{ width: "32px", height: "32px" }}
@@ -70,6 +69,19 @@ function Tags() {
         />
         <h3 style={{ marginLeft: "15px" }}>Negative</h3>
       </FlexRowWrapper>
+      <SingleTagWrapper>
+        {dummyState
+          .filter((tag) => {
+            return tag.good === false;
+          })
+          .map((positiveReview) => {
+            return (
+              <SingleTag good={positiveReview.good}>
+                {positiveReview.title}
+              </SingleTag>
+            );
+          })}
+      </SingleTagWrapper>
     </div>
   );
 }

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 import cheerio from "cheerio";
+import axios from "axios";
 
 import NavBar from "./NavBar";
 
 import OverallContext from "./context/overallContext";
 
 import Tags from "./Tags";
+import Reviews from "./Reviews";
 
 const overallDiVStyles = {
   width: "400px",
@@ -31,6 +33,18 @@ function App() {
     ],
   ];
   const [state, setState] = useState(arrayTemp);
+  function getPageInfo() {
+    axios
+      .get(
+        "https://www.amazon.in/LG-Monitor-FreeSync-Adjustable-Display/dp/B08K4L9MHM/ref=pd_sbs_1?pd_rd_w=QYyOy&pf_rd_p=99c630ba-ffa4-4940-9542-3945145447d6&pf_rd_r=RXGS1VS78VY6A4JZBYDC&pd_rd_r=40306745-aa97-49b7-b8e8-3d5d6cd62dc9&pd_rd_wg=ysg2P&pd_rd_i=B08K4L9MHM&psc=1"
+      )
+      .catch((error) => {
+        console.error(error);
+      })
+      .then((response) => {
+        console.log(response);
+      });
+  }
   return (
     <OverallContext.Provider value={{ state, setState }}>
       <div style={overallDiVStyles}>
@@ -41,7 +55,7 @@ function App() {
               <Tags />
             </Route>
             <Route path="/reviews" exact>
-              <p>reviews</p>
+              <Reviews />
             </Route>
             <Route path="/images" exact>
               <p>images</p>
