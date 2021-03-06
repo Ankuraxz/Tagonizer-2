@@ -21,18 +21,14 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html"
+      template: "./src/index.html",
     }),
 
-    new CopyWebpackPlugin( [
-        {from: 'src/manifest.json', to: '[name].[ext]'},
-        {from: 'src/background.js', to: '[name].[ext]'},
-        {from: 'src/content.js', to: '[name].[ext]'},
-        {from: 'src/*.png', to:'[name].[ext]'}
-      ]
-    )
+    new CopyWebpackPlugin([
+      { from: "src/manifest.json", to: "[name].[ext]" },
+      { from: "src/background.js", to: "[name].[ext]" },
+      { from: "src/content.js", to: "[name].[ext]" },
+      { from: "src/*.png", to: "[name].[ext]" },
+    ]),
   ],
-
-
 };
-
