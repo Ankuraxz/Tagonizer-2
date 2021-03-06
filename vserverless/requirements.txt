@@ -1,0 +1,10 @@
+# DO NOT include azure-functions-worker in this file
+# The Python Worker is managed by Azure Functions platform
+# Manually managing azure-functions-worker may cause unexpected issues
+azure-cognitiveservices-language-textanalytics==0.2.0
+azure-cognitiveservices-vision-computervision==0.7.0
+azure-common==1.1.26
+azure-core==1.12.0b1
+pillow==8.1.0
+msrest==0.6.21
+azure-functions

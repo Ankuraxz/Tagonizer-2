@@ -1,0 +1,5 @@
+azure-functions
+azure-ai-textanalytics==5.1.0b5
+azure-cognitiveservices-language-textanalytics==0.2.0
+azure-common==1.1.26
+azure-core==1.12.0b1
