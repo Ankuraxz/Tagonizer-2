@@ -1,32 +1,31 @@
-{"manifest_version": 2,
- 
+{
+  "manifest_version": 2,
+
   "name": "Tagonizer",
   "version": "2.0",
   "description": "AI powered Tag, review, suggestion and picture handling chrome extension",
-  
+
   "permissions": [
     "tabs",
     "notifications",
     "storage",
-    "https://www.amazon.in/*"],
-    "content_scripts": [{
-   
+    "https://www.amazon.in/*"
+  ],
+  "content_scripts": [
+    {
       "js": ["content.js"],
       "matches": ["https://www.amazon.in/*"]
-    }],
-  
-  "background" : {
-    "scripts" : ["background.js" ],
+    }
+  ],
+
+  "background": {
+    "scripts": ["background.js"],
     "persistent": false
   },
-  
-  "browser_action" : {
+
+  "browser_action": {
     "default_icon": "Logo.png",
     "default_popup": "index.html",
     "default_title": "a popup will come here"
-   
   }
-  
-  }
-  
-  
+}
