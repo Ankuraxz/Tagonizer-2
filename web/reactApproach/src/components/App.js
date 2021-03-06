@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import cheerio from "cheerio";
 
 import NavBar from "./NavBar";
 
@@ -13,14 +14,28 @@ const overallDiVStyles = {
   padding: "20px",
 };
 
-
+let url="";
 chrome.storage.sync.get(['tab'], function(items) {
   console.log('Settings retrieved in react', items);
+  url= items.tab;
+  console.log(url)
 });
 
 
 
 function App() {
+
+  useEffect(() =>{
+       
+           fetch(url)
+           .then(response => response.text() )
+          .then(text => {
+            const $ = cheerio.load(text);
+            console.log( $("#cm_cr-review_list .review-text-content").children().text().trim())
+          })
+
+  },[url] )
+
   const arrayTemp = [
     [
       "i received defective iphone 7 32GB silver colour d…. expecting Amazon to do quick action against it.",
