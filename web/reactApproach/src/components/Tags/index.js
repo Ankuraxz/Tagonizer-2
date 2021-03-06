@@ -74,10 +74,10 @@ function Tags() {
           .filter((tag) => {
             return tag.good === false;
           })
-          .map((positiveReview) => {
+          .map((negativeReview) => {
             return (
-              <SingleTag good={positiveReview.good}>
-                {positiveReview.title}
+              <SingleTag good={negativeReview.good}>
+                {negativeReview.title}
               </SingleTag>
             );
           })}
