@@ -61,9 +61,9 @@ async function getReviews(url) {
  // postImage(api);
  
 
- 
+}
 
-  imgResponse = await res.json();
+
 
 
 async function postData(url, data ) {
