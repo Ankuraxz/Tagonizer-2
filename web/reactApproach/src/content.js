@@ -14,15 +14,9 @@ let api = "https://tagonizer.herokuapp.com";
 
 // let runLoop = loop < ratings / 10;
 
-
-/***  Get seller images ***/
 const seller = document.querySelectorAll(".imageThumbnail .a-button-text img");
-seller.forEach((ele) =>
-  sellerImages.push(ele.getAttribute("src"))
-);
+seller.forEach((ele) => sellerImages.push(ele.getAttribute("src")));
 console.log(sellerImages);
-
-
 
 async function getReviews(url) {
   const res = await fetch(url);
@@ -31,7 +25,6 @@ async function getReviews(url) {
   let parser = new DOMParser();
   let doc = parser.parseFromString(text, "text/html");
 
- /**  Get reviews **/
   let content = doc.querySelector("#cm_cr-review_list");
   let parent = content.getElementsByClassName("a-section review aok-relative");
 
@@ -43,8 +36,7 @@ async function getReviews(url) {
   }
 
   console.log(arr);
-  
-  /** Get images **/
+
   const imgArr = document.querySelectorAll(
     ".review-image-tile-section .review-image-tile"
   );
@@ -54,18 +46,11 @@ async function getReviews(url) {
     console.log(ele.getAttribute("src"));
   });
 
-
   postData(api, arr);
- // postImage(api);
- 
-
- 
-
+  // postImage(api);
 }
 
-
-async function postData(url, data ) {
-
+async function postData(url, data) {
   //Revies api
   const response = await fetch(url + "/predict", {
     method: "POST",
@@ -76,7 +61,7 @@ async function postData(url, data ) {
     body: JSON.stringify({ comments: data }),
   });
 
- const values = await response.json();
+  const values = await response.json();
   console.log(values);
 
   //Image api
@@ -91,31 +76,44 @@ async function postData(url, data ) {
     }),
   });
 
- const imgResponse = await res.json();
+  const imgResponse = await res.json();
   console.log(imgResponse);
 
   chrome.runtime.sendMessage({
     data: values,
     reviews: arr,
-    images: imgResponse
+    images: imgResponse,
   });
-
-
 }
 
 // async function fetchData() {
 //   let ans = await getReviews(url);
 
-  //  while(runLoop && loop<=4){
-  // let ans= await getReviews(`https://www.amazon.in/T-Rock-Mens-Running-Shoes/product-reviews/B0886F4DHY/ref=cm_cr_arp_d_paging_btm_2?ie=UTF8&pageNumber=${loop}&reviewerType=all_reviews`)
-  //   runLoop = loop < (ratings/10)
-  //   loop++;
-  // }
+//  while(runLoop && loop<=4){
+// let ans= await getReviews(`https://www.amazon.in/T-Rock-Mens-Running-Shoes/product-reviews/B0886F4DHY/ref=cm_cr_arp_d_paging_btm_2?ie=UTF8&pageNumber=${loop}&reviewerType=all_reviews`)
+//   runLoop = loop < (ratings/10)
+//   loop++;
+// }
 
-  // console.log(customerImages);
-  // console.log(arr);
-
+// console.log(customerImages);
+// console.log(arr);
 
 //}
 
 getReviews(url);
+
+/*
+import axios from "../node_modules/axios";
+
+async function getHTMLContentFromWebPage() {
+  try {
+    const response = await axios.get(
+      "https://www.amazon.in/Apple-iPhone-Black-32GB-Storage/dp/B01LZKSVRB/ref=sr_1_1_sspa?dchild=1&keywords=iPhone&qid=1615042037&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUE0RFZZTlU0UU9PNUQmZW5jcnlwdGVkSWQ9QTAxNzU0OTdTQkJVT0pOOUE2RFkmZW5jcnlwdGVkQWRJZD1BMTAwMzI1NzFFWElLVVhJSTVOQkQmd2lkZ2V0TmFtZT1zcF9hdGYmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl"
+    );
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getHTMLContentFromWebPage();*/
