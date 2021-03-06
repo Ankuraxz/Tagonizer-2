@@ -35,7 +35,7 @@ module.exports = {
     new CopyWebpackPlugin( [
         {from: 'src/manifest.json', to: '[name].[ext]'},
         {from: 'src/background.js', to: '[name].[ext]'},
-        {from: 'src/content.js', to: '[name].[ext]'},
+        {from: 'src/content.mjs', to: '[name].[ext]'},
         {from: 'src/*.png', to:'[name].[ext]'}
       ]
     )
