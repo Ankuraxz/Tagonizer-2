@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
+import cheerio from "cheerio";
+
 import NavBar from "./NavBar";
 
 import OverallContext from "./context/overallContext";
