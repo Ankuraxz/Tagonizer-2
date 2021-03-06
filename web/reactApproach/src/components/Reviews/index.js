@@ -24,23 +24,12 @@ const HandleColorSingleElementBorder = (status) => {
   }
 };
 
-const HandleColorSingleElementFont = (status) => {
-  switch (status) {
-    case 1:
-      return "white";
-    case 2:
-      return "white";
-    case 3:
-      return "white";
-  }
-};
-
 const SingleTag = styled.div`
   border-radius: 7px;
   margin-right: 10px;
   margin-bottom: 7px;
   padding: 10px;
-  color: ${({ status }) => HandleColorSingleElementFont(status)};
+  color: white;
   background-color: ${({ status }) =>
     HandleColorSingleElementBackGround(status)};
   border: 2px solid ${({ status }) => HandleColorSingleElementBorder(status)};
@@ -137,34 +126,87 @@ function Reviews() {
     });
   }, []);
   return (
-    <div style={{ margin: "20px" }}>
+    <div style={{ marginBottom: "30px" }}>
       {overall.negative !== 0 ? (
-        dummyState
-          .filter((tag) => {
-            return tag.status === 1;
-          })
-          .map(({ review, status }) => {
-            return <SingleTag status={status}>{review}</SingleTag>;
-          })
+        <>
+          <Negative />
+          {dummyState
+            .filter((tag) => {
+              return tag.status === 1;
+            })
+            .map(({ review, status }) => {
+              return <SingleTag status={status}>{review}</SingleTag>;
+            })}
+        </>
       ) : (
         <h3>Sorry, we could find negative reviews</h3>
       )}
-      {dummyState
-        .filter((tag) => {
-          return tag.status === 2;
-        })
-        .map(({ review, status }) => {
-          return <SingleTag status={status}>{review}</SingleTag>;
-        })}
-      {<p>AaAAAAAA</p> &&
-        dummyState
-          .filter((tag) => {
-            return tag.status === 3;
-          })
-          .map(({ review, status }) => {
-            return <SingleTag status={status}>{review}</SingleTag>;
-          })}
+      {overall.positive !== 0 ? (
+        <>
+          <Positive />
+          {dummyState
+            .filter((tag) => {
+              return tag.status === 2;
+            })
+            .map(({ review, status }) => {
+              return <SingleTag status={status}>{review}</SingleTag>;
+            })}
+        </>
+      ) : (
+        <h3>Sorry, we could find positive reviews</h3>
+      )}
+      {overall.moderate !== 0 ? (
+        <>
+          <Moderate />
+          {dummyState
+            .filter((tag) => {
+              return tag.status === 3;
+            })
+            .map(({ review, status }) => {
+              return <SingleTag status={status}>{review}</SingleTag>;
+            })}
+        </>
+      ) : (
+        <h3>Sorry, we could find moderate reviews</h3>
+      )}
     </div>
+  );
+}
+
+const FlexRowWrapper = styled.div`
+  display: flex;
+  flex-direction: "row";
+  align-items: "center";
+  margin-top: 15px;
+`;
+
+function Negative() {
+  return (
+    <FlexRowWrapper>
+      <img style={{ width: "32px", height: "32px" }} src="../../sad.png" />
+      <h3 style={{ marginLeft: "15px" }}>Negative</h3>
+    </FlexRowWrapper>
+  );
+}
+
+function Positive() {
+  return (
+    <FlexRowWrapper>
+      <img
+        style={{ width: "32px", height: "32px" }}
+        src="../../happiness.png"
+      />
+      <h3 style={{ marginLeft: "15px" }}>Positive</h3>
+    </FlexRowWrapper>
+  );
+}
+
+function Moderate() {
+  return (
+    <FlexRowWrapper>
+      <img style={{ width: "32px", height: "32px" }} src="../../neutral.png" />
+      <h3 style={{ marginLeft: "15px" }}>Moderate</h3>
+    </FlexRowWrapper>
   );
 }
 

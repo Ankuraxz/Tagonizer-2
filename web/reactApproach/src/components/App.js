@@ -14,6 +14,7 @@ import Reviews from "./Reviews";
 const overallDiVStyles = {
   width: "400px",
   height: "545px",
+  overflowY: "scroll",
   padding: "20px",
 };
 
