@@ -6,11 +6,7 @@ console.log("background running");
 // chrome.tabs.executeScript(null, {file: "content.js"});
 // }
 
-let text = "extension";
-
 const browserData ={} ;
-
-let text = "extension";
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse){
