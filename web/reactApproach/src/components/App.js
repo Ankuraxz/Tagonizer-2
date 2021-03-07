@@ -14,12 +14,15 @@ import LoaderContext from "./context/loader";
 
 import Tags from "./Tags";
 import Reviews from "./Reviews";
+import Images from "./Images";
 
 const overallDiVStyles = {
   width: "400px",
   height: "545px",
   overflowY: "scroll",
   padding: "20px",
+  display: "flex",
+  flexDirection: "column",
 };
 
 function App() {
@@ -173,7 +176,7 @@ function App() {
                 {loader ? <p>Loading...</p> : <Reviews />}
               </Route>
               <Route path="/images" exact>
-                <p>images</p>
+                <Images />
               </Route>
             </Switch>
           </Router>
