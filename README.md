@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/ankuraxz/tagonizer/">
-    <img src="https://raw.githubusercontent.com/ankuraxz/tagonizer/main/Logo.png" alt="Tagonizer" width="150" height="150"> 
+    <img src="https://raw.githubusercontent.com/ankuraxz/tagonizer/main/logo.png" alt="Tagonizer" width="150" height="150"> 
   </a>
 </p>
 
