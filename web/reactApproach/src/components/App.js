@@ -26,20 +26,19 @@ const overallDiVStyles = {
   backgroundColor: "inherit"
 };
 
-let url = "";
-let sellerImages;
-let numRatings;
-chrome.storage.sync.get(
-  ["tab", "sellerImages", "numRatings"],
-  function (items) {
-    url = items.tab;
-    sellerImages = [...items.sellerImages];
-    numRatings = items.numRatings;
-    console.log(url);
-  }
-);
-
 function App() {
+  const [url, setUrl] = useState("");
+  let sellerImages;
+  let numRatings;
+  chrome.storage.sync.get(
+    ["tab", "sellerImages", "numRatings"],
+    function (items) {
+      setUrl(items.tab);
+      sellerImages = [...items.sellerImages];
+      numRatings = items.numRatings;
+    }
+  );
+
   const apiReview = "https://tagonizer-text.azurewebsites.net/api/HttpTrigger1";
   const apiImage =
     "https://tagonizer-image.azurewebsites.net/api/Tagonizer-image";
@@ -49,7 +48,6 @@ function App() {
     tags: [],
   });
   const [customerImages, setCustomerImages] = useState([]);
-  const [reviewsData, setData] = useState();
   const [imagesData, setImagesData] = useState();
   const [loader, setLoader] = useState(true);
 
@@ -82,7 +80,6 @@ function App() {
 
         setCustomerImages(imgSrc);
         setReviews(arr);
-        console.log("array of input arrays", arr);
       });
   }, []);
 
@@ -136,6 +133,9 @@ function App() {
         .then((res) => {
           console.log("review", res.data);
           reviewsRes = res.data;
+          return reviewsRes;
+        })
+        .then((reviewsRes) => {
           processReviewAPIResponse(reviewsRes, reviews);
           return reviewsRes;
         })
@@ -157,9 +157,9 @@ function App() {
         .then((res) => {
           console.log("images", res.data);
           imagesRes = res.data;
+          console.log(imagesRes);
         });
-      console.log(reviews);
-      setData(reviewsData);
+      //setData(reviewsData);
       setImagesData();
     }
   }, [reviews]);
@@ -174,10 +174,10 @@ function App() {
             {/* <Tags /> */}
             <Switch>
               <Route path="/" exact>
-                <Tags />
+                {loader ? <p>Loading...</p> : <Tags />}
               </Route>
               <Route path="/reviews" loader={loader} exact>
-                <Reviews />
+                {loader ? <p>Loading...</p> : <Reviews />}
               </Route>
               <Route path="/images" exact>
                 <p>images</p>
