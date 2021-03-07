@@ -14,6 +14,7 @@ function NavBar() {
       style={{
         display: "flex",
         justifyContent: "space-around",
+      
       }}
     >
       <SingleItem location="/" name="Tags" />

@@ -23,6 +23,7 @@ const overallDiVStyles = {
 //  height: "500px",
  // overflowY: "auto",
   padding: "20px",
+  backgroundColor: "inherit"
 };
 
 let url = "";
