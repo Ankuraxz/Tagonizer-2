@@ -11,9 +11,10 @@ let ratings = document
 ratings = parseInt(ratings.replace(/,/g, ""));
 console.log(ratings);
 
-const sellerImages=[];
+let sellerImages=[];
 const seller = document.querySelectorAll(".imageThumbnail .a-button-text img");
 seller.forEach((ele) => sellerImages.push(ele.getAttribute("src")));
+sellerImages=sellerImages.slice(0,5);
 console.log(sellerImages);
 
 

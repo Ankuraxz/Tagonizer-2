@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const styleButton = {
   padding: "20px",
-  fontSize: "30px",
+  fontSize: "24px",
   textDecoration: "none",
 };
 
