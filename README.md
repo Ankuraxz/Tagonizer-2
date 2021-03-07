@@ -8,7 +8,7 @@
   <a href="https://github.com/ankuraxz/tagonizer/">
    <img src="https://madewithlove.now.sh/in?heart=true&colorA=%23ff0000&colorB=%23050505&template=plastic" alt="Made with love in India">
     <img alt="GitHub" src="https://img.shields.io/github/license/ankuraxz/tagonizer?style=plastic">
-    <img src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by%20-Majestic%20Coders-red&template=plastic">
+    <img src="https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F%20by%20-Errors%20404-red&template=plastic">
   </a>
 </p>
 
