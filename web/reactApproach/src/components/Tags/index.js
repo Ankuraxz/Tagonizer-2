@@ -24,6 +24,7 @@ const SingleTag = styled.div`
   margin-bottom: 7px;
   padding: 10px;
   color: white;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   ${(props) =>
     props.good
       ? "border: 2px solid #056608; background-color: #8ac24b"

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const styleButton = {
-  padding: "20px",
+  padding: "10px 20px",
   fontSize: "24px",
   textDecoration: "none",
 };
