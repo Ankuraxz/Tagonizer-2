@@ -6,21 +6,22 @@ console.log("background running");
 // chrome.tabs.executeScript(null, {file: "content.js"});
 // }
 
-let text = "extension";
+
 
 const browserData ={} ;
 
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse){
-      browserData["data"] = request.data;
-      browserData["reviews"] = request.reviews;
-      browserData["images"] = request.images;
-      console.log(browserData)
-      chrome.runtime.sendMessage(browserData);
+// chrome.storage.sync.get(['tab'], function(items) {
+//   console.log('Settings retrieved', items);
+// });
 
-      //  localStorage.setItem('data', JSON.stringify(request.data));
-      //  localStorage.setItem('reviews', JSON.stringify(request.reviews));
-      // localStorage.setItem('images', JSON.stringify(request.images));
-    }
-);
+// chrome.runtime.onMessage.addListener(
+//     function(request, sender, sendResponse){
+//       browserData["url"] = request.tab;
+//       localStorage.setItem('url', request.tab);
+//       console.log(browserData)
+//       chrome.runtime.sendMessage(browserData);
+
+     
+//     }
+// );
 
