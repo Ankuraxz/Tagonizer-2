@@ -16,6 +16,7 @@ key1 = os.environ["KEY"]
 ep = os.environ["ENDPOINT"]
 loc = os.environ["LOCATION"]
 
+
 KEY = os.environ["VKEY"]
 ENDPOINT = os.environ["VENDPOINT"]
 LOCATION = os.environ["LOCATION"]
