@@ -48,11 +48,18 @@ const Images = ({ imageRefs }) => {
         justifyContent: "center",
       }}
     >
-      <AliceCarousel
-        mouseTracking
-        styles={{ display: "flex" }}
-        activeIndex={1}
-      ></AliceCarousel>
+      <AliceCarousel mouseTracking styles={{ display: "flex" }} activeIndex={1}>
+        {imageRefs &&
+          imageRefs.Images((element) => {
+            return (
+              <img
+                style={styleImages}
+                src={`${element}`}
+                onDragStart={handleDragStart}
+              />
+            );
+          })}
+      </AliceCarousel>
     </div>
   );
 };

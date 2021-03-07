@@ -31,16 +31,14 @@ const overallDiVStyles = {
 
 let sellerImages;
 let numRatings;
-let url;
-
-chrome.storage.sync.get(["tab", "sellerImages"], function (items) {
- url=items.tab;
-  sellerImages = [...items.sellerImages];
-  numRatings = items.numRatings;
-});
 
 function App() {
-
+  const [url, setUrl] = useState("");
+  chrome.storage.sync.get(["tab", "sellerImages"], function (items) {
+    setUrl(items.tab);
+    sellerImages = [...items.sellerImages];
+    numRatings = items.numRatings;
+  });
   const apiReview = "https://tagonizer-text.azurewebsites.net/api/HttpTrigger1";
   const apiImage =
     "https://tagonizer-image.azurewebsites.net/api/Tagonizer-image";
@@ -159,12 +157,14 @@ function App() {
         .then((res) => {
           console.log("images", res.data);
           imagesRes = res.data;
-          console.log("recieved data images", imagesRes);
+          // I do not see the image results here
+          console.log("image result", imagesRes);
           return imagesRes;
         })
         .then((imagesRes) => {
           setImagesData(imagesRes);
         });
+      //setData(reviewsData);
     }
   }, [reviews]);
 
