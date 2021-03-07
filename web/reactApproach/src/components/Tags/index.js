@@ -1,21 +1,80 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 
-const stylesMain = {
-  padding: "20px",
-};
+import OverallContext from "../context/overallContext";
+
+import styled from "styled-components";
+
+const FlexRowWrapper = styled.div`
+  display: flex;
+  flex-direction: "row";
+  align-items: "center";
+  margin-top: 15px;
+`;
+
+const SingleTagWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const SingleTag = styled.div`
+  border-radius: 7px;
+  margin-right: 10px;
+  margin-bottom: 7px;
+  padding: 10px;
+  color: white;
+  ${(props) =>
+    props.good
+      ? "border: 2px solid #056608; background-color: #8ac24b"
+      : "border: 2px solid #dc143c; background-color: #fc4c4c"};
+`;
 
 function Tags() {
+  let { state, setState } = useContext(OverallContext);
+  const [dummyState, setDummyState] = useState(state.tags);
+
   return (
-    <div style={stylesMain}>
-      <div
-        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
-      >
+    <div>
+      <FlexRowWrapper>
         <img
           style={{ width: "32px", height: "32px" }}
           src="../../positive.png"
         />
         <h3 style={{ marginLeft: "15px" }}>Positive</h3>
-      </div>
+      </FlexRowWrapper>
+      <SingleTagWrapper>
+        {dummyState
+          .filter((tag) => {
+            return tag.good === true;
+          })
+          .map((positiveReview) => {
+            return (
+              <SingleTag good={positiveReview.good}>
+                {positiveReview.title}
+              </SingleTag>
+            );
+          })}
+      </SingleTagWrapper>
+      <FlexRowWrapper>
+        <img
+          style={{ width: "32px", height: "32px" }}
+          src="../../negative.png"
+        />
+        <h3 style={{ marginLeft: "15px" }}>Negative</h3>
+      </FlexRowWrapper>
+      <SingleTagWrapper>
+        {dummyState
+          .filter((tag) => {
+            return tag.good === false;
+          })
+          .map((negativeReview) => {
+            return (
+              <SingleTag good={negativeReview.good}>
+                {negativeReview.title}
+              </SingleTag>
+            );
+          })}
+      </SingleTagWrapper>
     </div>
   );
 }
