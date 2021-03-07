@@ -1,8 +1,8 @@
 import React, {useState, useContext} from "react";
 import LoaderContext from "../context/loader";
 import ThemeContext from "../context/darkTheme";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun, faMoon , faMeh , faFrown , faSmile } from '@fortawesome/free-solid-svg-icons';
 import "../../app.css"
 import  PacmanLoader from "react-spinners/PacmanLoader";
 import {
@@ -47,7 +47,7 @@ return (
        <img src="../../Logo.png" className="main-logo"  />
           <h1>Tagonizer</h1>
           <br />
-          <div style={{textAlign: "center"}}>
+          <div >
      <PacmanLoader color={"#C51B1B"} loading={loader}  size={30} />
      </div>
     </div>:

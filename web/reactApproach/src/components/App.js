@@ -75,13 +75,12 @@ function App() {
 
         //fetch images
         const imgSrc = [];
-        //  console.log( $(".review-image-tile-section .review-image-tile").children());
-        //  $(".review-image-tile-section .review-image-tile").children().each(function(i){
-        //    console.log($(this).attr("src"))
-        //  })
-        imgSrc.push(
-          $(".review-image-tile-section .review-image-tile").attr("src")
-        );
+       
+        $(".review-image-tile-section img").each(function(i){
+          imgSrc.push($(this).attr("src"))
+        })
+       
+        console.log(imgSrc);
 
         setCustomerImages(imgSrc);
         setReviews(arr);
@@ -155,6 +154,7 @@ function App() {
         seller_img: sellerImages,
         customer_img: customerImages,
       };
+      console.log(imgRequest)
       axios
         .post(apiImage, imgRequest, {
           headers: { "Access-Control-Allow-Origin": "*" },
@@ -176,7 +176,7 @@ function App() {
         <div style={overallDiVStyles}>
           <Router>
             <NavBar />
-            {/* <Tags /> */}
+            
             <Switch>
               <Route path="/" exact>
                 {loader ? <p>Loading...</p> : <Tags />}
