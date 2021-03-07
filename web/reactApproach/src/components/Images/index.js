@@ -8,7 +8,7 @@ const handleDragStart = (e) => e.preventDefault();
 
 const styleImages = {
   maxWidth: "250px",
-  maxHeight: "330px",
+  maxHeight: "300px",
   width: "auto",
   height: "auto",
   marginLeft: "55px",
