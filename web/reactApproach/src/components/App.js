@@ -71,14 +71,13 @@ function App() {
 
         //fetch images
         const imgSrc = [];
-       
-        $(".review-image-tile-section img").each(function(i){
-          imgSrc.push($(this).attr("src"))
-        })
-       
+
+        $(".review-image-tile-section img").each(function (i) {
+          imgSrc.push($(this).attr("src"));
+        });
+
         console.log(imgSrc);
-        
-        
+
         setCustomerImages(imgSrc);
         setReviews(arr);
       });
@@ -151,7 +150,7 @@ function App() {
         seller_img: sellerImages,
         customer_img: customerImages,
       };
-      console.log(imgRequest)
+      console.log(imgRequest);
       axios
         .post(apiImage, imgRequest, {
           headers: { "Access-Control-Allow-Origin": "*" },
@@ -159,38 +158,38 @@ function App() {
         .then((res) => {
           console.log("images", res.data);
           imagesRes = res.data;
-          console.log(imagesRes);
+          console.log("recieved data images", imagesRes);
+          return imagesRes;
+        })
+        .then((imagesRes) => {
+          setImagesData(imagesRes);
         });
-      //setData(reviewsData);
-      setImagesData(imagesRes);
     }
   }, [reviews]);
 
   return (
     <OverallContext.Provider value={{ state, setState }}>
       <LoaderContext.Provider value={{ loader, setLoader }}>
-        <ImageContext.Provider value={{imagesData, setImagesData}}>
-        <Layout>
-
-          <div style={overallDiVStyles}>
-            <Router>
-              <NavBar />
-              {/* <Tags /> */}
-              <Switch>
-                <Route path="/" exact>
-                  {loader ? <p>Loading...</p> : <Tags />}
-                </Route>
-                <Route path="/reviews" loader={loader} exact>
-                  {loader ? <p>Loading...</p> : <Reviews />}
-                </Route>
-                <Route path="/images"  exact>
-                  <Images />
-                </Route>
-              </Switch>
-            </Router>
-          </div>
-
-        </Layout>
+        <ImageContext.Provider value={{ imagesData, setImagesData }}>
+          <Layout>
+            <div style={overallDiVStyles}>
+              <Router>
+                <NavBar />
+                {/* <Tags /> */}
+                <Switch>
+                  <Route path="/" exact>
+                    {loader ? <p>Loading...</p> : <Tags />}
+                  </Route>
+                  <Route path="/reviews" loader={loader} exact>
+                    {loader ? <p>Loading...</p> : <Reviews />}
+                  </Route>
+                  <Route path="/images" exact>
+                    <Images imageRefs={imagesData} />
+                  </Route>
+                </Switch>
+              </Router>
+            </div>
+          </Layout>
         </ImageContext.Provider>
       </LoaderContext.Provider>
     </OverallContext.Provider>
