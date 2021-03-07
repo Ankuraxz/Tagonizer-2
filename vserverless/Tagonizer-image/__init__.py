@@ -27,6 +27,7 @@ def tagger(url, client):
 
 def url_cleaner(url):
     id = url[49:].split(".")[0]
+
     return (url[:49] + id + ".jpg")
 
 # def authenticate_client():
@@ -54,33 +55,44 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             pass
         else:
             customer_img = req_body.get('customer_img')
-    ####
+
     if type(seller_img) ==list and type(customer_img)==list:
         s_tags_set = set()
         good_images = []
         c_tags = []
 
-        # with authenticate_client() as computervision_client:
+
 
         seller_img_resized = []
         for ix in seller_img:
             ix = url_cleaner(ix)
             seller_img_resized.append(ix)
-            s_tags = tagger(ix, computervision_client)
-            for iw in s_tags:
-                iw = iw.lower()
-                s_tags_set.add(iw)
+
+            try:
+                s_tags = tagger(ix, computervision_client)
+                for iw in s_tags:
+                    iw = iw.lower()
+                    s_tags_set.add(iw)
+            except Exception as e:
+                logging.info(e)
+                pass
 
         for iy in customer_img:
-            if "jpg" in iy:
-                iy = url_cleaner(iy)
-                c_tags = tagger(iy, computervision_client)
+            try:
+                if "jpg" in iy:
+                    iy = url_cleaner(iy)
+                    c_tags = tagger(iy, computervision_client)
 
-            for iz in c_tags:
-                iz = iz.lower()
-                if iz in s_tags_set:
-                    good_images.append(iy)
-                    break
+                for iz in c_tags:
+                    iz = iz.lower()
+                    if iz in s_tags_set:
+                        good_images.append(iy)
+                        break
+            except Exception as e:
+                logging.info(e)
+                pass
+
+
 
         if len(good_images) == 0:
             good_images = seller_img_resized
