@@ -33,6 +33,8 @@ const SingleTag = styled.div`
   background-color: ${({ status }) =>
     HandleColorSingleElementBackGround(status)};
   border: 2px solid ${({ status }) => HandleColorSingleElementBorder(status)};
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  cursor:pointer;
 `;
 
 function Reviews() {

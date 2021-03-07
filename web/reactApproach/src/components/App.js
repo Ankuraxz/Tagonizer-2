@@ -29,16 +29,15 @@ const overallDiVStyles = {
   backgroundColor: "inherit",
 };
 
-let numRatings;
+let sellerImages;
 
 function App() {
   const [url, setUrl] = useState("");
-  const [sellerImages, setSellerImages] = useState({});
   chrome.storage.sync.get(["tab", "sellerImages"], function (items) {
     setUrl(items.tab);
-    setSellerImages([...items.sellerImages]);
-    numRatings = items.numRatings;
+    sellerImages= [...items.sellerImages];
   });
+
   const apiReview = "https://tagonizer-text.azurewebsites.net/api/HttpTrigger1";
   const apiImage =
     "https://tagonizer-image.azurewebsites.net/api/Tagonizer-image";
