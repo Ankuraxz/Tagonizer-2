@@ -55,21 +55,21 @@ function Reviews() {
   useEffect(() => {
     state.reviews.map(({ status }) => {
       switch (status) {
-        case 1:
+        case 0:
           return setOverall((prev) => {
             return {
               ...prev,
               negative: prev.negative + 1,
             };
           });
-        case 2:
+        case 1:
           return setOverall((prev) => {
             return {
               ...prev,
               positive: prev.positive + 1,
             };
           });
-        case 3:
+        case 2:
           return setOverall((prev) => {
             return {
               ...prev,
@@ -96,7 +96,7 @@ function Reviews() {
           <Negative />
           {dummyState
             .filter((tag) => {
-              return tag.status === 1;
+              return tag.status === 0;
             })
             .map(({ review, status, id }) => {
               return (
@@ -123,7 +123,7 @@ function Reviews() {
           <Positive />
           {dummyState
             .filter((tag) => {
-              return tag.status === 2;
+              return tag.status === 1;
             })
             .map(({ review, status, id }) => {
               return (
@@ -150,7 +150,7 @@ function Reviews() {
           <Moderate />
           {dummyState
             .filter((tag) => {
-              return tag.status === 3;
+              return tag.status === 2;
             })
             .map(({ review, status, id }) => {
               return (
