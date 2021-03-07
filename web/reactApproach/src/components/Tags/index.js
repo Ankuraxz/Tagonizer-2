@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+
+import OverallContext from "../context/overallContext";
+
 import styled from "styled-components";
 
 const FlexRowWrapper = styled.div`
@@ -27,18 +30,8 @@ const SingleTag = styled.div`
 `;
 
 function Tags() {
-  const [dummyState, setDummyState] = useState([
-    { title: "product", good: true },
-    { title: "slim", good: true },
-    { title: "hardware system", good: true },
-    { title: "experience", good: true },
-    { title: "discounts", good: true },
-    { title: "power", good: true },
-    { title: "display", good: true },
-    { title: "phone microphone", good: false },
-    { title: "customer service", good: false },
-    { title: "software Interwace", good: false },
-  ]);
+  let { state, setState } = useContext(OverallContext);
+  const [dummyState, setDummyState] = useState(state.tags);
 
   return (
     <div>
