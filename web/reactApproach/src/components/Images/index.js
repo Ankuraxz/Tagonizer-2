@@ -1,7 +1,6 @@
-import React, {useContext} from "react";
+import React from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import ImageContext from "../context/imageContext";
 
 import styled from "styled-components";
 
@@ -38,32 +37,34 @@ const items = [
   />,
 ];
 
-const Images = () => {
 
-  let {imagesData, setImagesData } = useContext(OverallContext);
 
-  // const items =imagesData.map(source=>  <img
-  //   style={styleImages}
-  //   src={source}
-  //   onDragStart={handleDragStart}
-  // />)
+  const Images = ({ imageRefs }) => {
+    console.log("imageRefs", imageRefs);
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <AliceCarousel mouseTracking styles={{ display: "flex" }} activeIndex={1}>
+          {imageRefs &&
+            imageRefs.Images.map((element) => {
+              return (
+                <img
+                  style={styleImages}
+                  src={`${element}`}
+                  onDragStart={handleDragStart}
+                />
+              );
+            })}
+        </AliceCarousel>
+      </div>
+    );
+  };
+  
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <AliceCarousel
-        mouseTracking
-        styles={{ display: "flex" }}
-        items={items}
-        activeIndex={1}
-      />
-    </div>
-  );
-};
 
 export default Images;
