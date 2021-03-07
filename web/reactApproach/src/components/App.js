@@ -29,16 +29,17 @@ const overallDiVStyles = {
   backgroundColor: "inherit",
 };
 
-function App() {
-  const [url, setUrl] = useState("");
-  let sellerImages;
-  let numRatings;
+let sellerImages;
+let numRatings;
+let url;
 
-  chrome.storage.sync.get(["tab", "sellerImages"], function (items) {
-    setUrl(items.tab);
-    sellerImages = [...items.sellerImages];
-    numRatings = items.numRatings;
-  });
+chrome.storage.sync.get(["tab", "sellerImages"], function (items) {
+ url=items.tab;
+  sellerImages = [...items.sellerImages];
+  numRatings = items.numRatings;
+});
+
+function App() {
 
   const apiReview = "https://tagonizer-text.azurewebsites.net/api/HttpTrigger1";
   const apiImage =
