@@ -1,25 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import OverallContext from "../context/overallContext";
+import LoaderContext from "../context/loader";
 
 const HandleColorSingleElementBackGround = (status) => {
   switch (status) {
-    case 1:
+    case 0:
       return "#fc4c4c";
-    case 2:
+    case 1:
       return "#8ac24b";
-    case 3:
+    case 2:
       return "#EAA221";
   }
 };
 
 const HandleColorSingleElementBorder = (status) => {
   switch (status) {
-    case 1:
+    case 0:
       return "#dc143c";
-    case 2:
+    case 1:
       return "#056608";
-    case 3:
+    case 2:
       return "#C04000";
   }
 };
@@ -37,11 +38,12 @@ const SingleTag = styled.div`
 
 function Reviews() {
   let { state, setState } = useContext(OverallContext);
+  let { loader, setLoader } = useContext(LoaderContext);
   const [dummyState, setdummyState] = useState([]);
 
   useEffect(() => {
     setdummyState(state.reviews);
-  }, []);
+  }, [loader]);
 
   const [overall, setOverall] = useState({
     positive: 0,
@@ -55,21 +57,21 @@ function Reviews() {
   useEffect(() => {
     state.reviews.map(({ status }) => {
       switch (status) {
-        case 1:
+        case 0:
           return setOverall((prev) => {
             return {
               ...prev,
               negative: prev.negative + 1,
             };
           });
-        case 2:
+        case 1:
           return setOverall((prev) => {
             return {
               ...prev,
               positive: prev.positive + 1,
             };
           });
-        case 3:
+        case 2:
           return setOverall((prev) => {
             return {
               ...prev,
@@ -78,7 +80,7 @@ function Reviews() {
           });
       }
     });
-  }, []);
+  }, [loader]);
 
   // set shrinked up and every is shrinked up by default
   useEffect(() => {
@@ -87,16 +89,18 @@ function Reviews() {
         return { ...prev, [id]: true };
       });
     });
-  }, []);
+  }, [loader]);
 
-  return (
+  return loader ? (
+    <p>Loading</p>
+  ) : (
     <div style={{ marginBottom: "30px" }}>
       {overall.negative !== 0 ? (
         <>
           <Negative />
           {dummyState
             .filter((tag) => {
-              return tag.status === 1;
+              return tag.status === 0;
             })
             .map(({ review, status, id }) => {
               return (
@@ -123,7 +127,7 @@ function Reviews() {
           <Positive />
           {dummyState
             .filter((tag) => {
-              return tag.status === 2;
+              return tag.status === 1;
             })
             .map(({ review, status, id }) => {
               return (
@@ -150,7 +154,7 @@ function Reviews() {
           <Moderate />
           {dummyState
             .filter((tag) => {
-              return tag.status === 3;
+              return tag.status === 2;
             })
             .map(({ review, status, id }) => {
               return (

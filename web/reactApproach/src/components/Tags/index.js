@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 
 import OverallContext from "../context/overallContext";
+import LoaderContext from "../context/loader";
 
 import styled from "styled-components";
 
@@ -31,9 +32,16 @@ const SingleTag = styled.div`
 
 function Tags() {
   let { state, setState } = useContext(OverallContext);
-  const [dummyState, setDummyState] = useState(state.tags);
+  let { loader, setLoader } = useContext(LoaderContext);
+  const [dummyState, setDummyState] = useState();
 
-  return (
+  useEffect(() => {
+    setDummyState(state.tags);
+  }, [loader]);
+
+  return loader ? (
+    <p>Loading...</p>
+  ) : (
     <div>
       <FlexRowWrapper>
         <img

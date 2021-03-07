@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import LoaderContext from "../context/loader";
 import "../../app.css"
 import  PacmanLoader from "react-spinners/PacmanLoader";
 import {
@@ -11,7 +12,7 @@ import {
 
 const Layout =(props) => {
 
-    let [loading, setLoading] = useState(false);
+    let { loader, setLoader } = useContext(LoaderContext);
 return (
     <>
     <Card>
@@ -25,18 +26,18 @@ return (
          width: "400px",
          height:"500px"
     }}>
-  {loading ? 
+  {loader ? 
   <div className="loader-div">
        <img src="../../Logo.png" className="main-logo"  />
           <h1>Tagonizer</h1>
           <br />
-     <PacmanLoader color={"#C51B1B"} loading={loading}  size={30} />
+     <PacmanLoader color={"#C51B1B"} loading={loader}  size={30} />
     </div>:
       props.children}
     </CardBody>
    
     </Card>
-     <div className="card-footer" >
+    <div className="card-footer" >
      Made By Team Error 404
  </div>
  </>
