@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import cheerio from "cheerio";
+import axios from "axios";
 
 import NavBar from "./NavBar";
 
@@ -17,15 +18,17 @@ const overallDiVStyles = {
 let url = "";
 let sellerImages = [];
 chrome.storage.sync.get(["tab", "sellerImages"], function(items) {
-  console.log("Settings retrieved in react", items);
+  console.log("Data retrieved in react", items);
   url = items.tab;
   sellerImages = [...items.sellerImages];
   console.log(url);
 });
 
 function App() {
+  const api = "https://tagonizer.herokuapp.com";
   const [reviews, setReviews] = useState([]);
   const [customerImages, setCustomerImages] = useState([]);
+  const [data , setData] = useState();
 
   useEffect(() => {
     fetch(url)
@@ -39,6 +42,7 @@ function App() {
             arr.push(
               $(this)
                 .text()
+                .replace(/(\r\n|\n|\r)/gm, "")
                 .trim()
             );
           });
@@ -46,33 +50,27 @@ function App() {
 
         //fetch images
         const imgSrc = [];
-        //imgSrc.push($(".review-image-tile-section .review-image-tile").attr("src"))
-        const images = document.querySelectorAll(
-          ".review-image-tile-section .review-image-tile"
-        );
-        console.log(images);
-        images.forEach((ele) => {
-          imgSrc.push(ele.getAttribute("src"));
-        });
-
+        imgSrc.push($(".review-image-tile-section .review-image-tile").attr("src"))
         console.log(imgSrc);
+
         setCustomerImages(imgSrc);
         setReviews(arr);
       });
   }, [url]);
 
-  // useEffect(() => {
-  //     async function getImages () {
-  //       const response = await fetch(url);
-  //       const text = await response.text();
-  //       const $ = cheerio.load(text);
-  //       console.log( $(".review-image-tile-section .review-image-tile").children().attr())
-  //     }
-
-  //    getImages();
-
-  
-  // }, [url]);
+ useEffect(()=> {
+   if(reviews.length){
+   const reviewsObj = {
+    "comments": reviews
+   }
+   console.log(reviewsObj)
+  axios.post(api + "/predict", reviewsObj)
+  .then(res => {
+    console.log(res.data);
+    setData(res.data);
+  });
+}
+ },[reviews])
 
   const arrayTemp = [
     [
