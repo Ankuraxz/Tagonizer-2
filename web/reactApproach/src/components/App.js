@@ -13,6 +13,7 @@ import Layout from "../components/Layout";
 
 import OverallContext from "./context/overallContext";
 import LoaderContext from "./context/loader";
+import ImageContext from "./context/imageContext";
 
 import Tags from "./Tags";
 import Reviews from "./Reviews";
@@ -76,7 +77,8 @@ function App() {
         })
        
         console.log(imgSrc);
-
+        
+        
         setCustomerImages(imgSrc);
         setReviews(arr);
       });
@@ -160,13 +162,14 @@ function App() {
           console.log(imagesRes);
         });
       //setData(reviewsData);
-      setImagesData();
+      setImagesData(imagesRes);
     }
   }, [reviews]);
 
   return (
     <OverallContext.Provider value={{ state, setState }}>
       <LoaderContext.Provider value={{ loader, setLoader }}>
+        <ImageContext.Provider value={{imagesData, setImagesData}}>
         <Layout>
 
           <div style={overallDiVStyles}>
@@ -180,7 +183,7 @@ function App() {
                 <Route path="/reviews" loader={loader} exact>
                   {loader ? <p>Loading...</p> : <Reviews />}
                 </Route>
-                <Route path="/images" exact>
+                <Route path="/images"  exact>
                   <Images />
                 </Route>
               </Switch>
@@ -188,6 +191,7 @@ function App() {
           </div>
 
         </Layout>
+        </ImageContext.Provider>
       </LoaderContext.Provider>
     </OverallContext.Provider>
   );

@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
+import ImageContext from "../context/imageContext";
 
 import styled from "styled-components";
 
@@ -38,6 +39,15 @@ const items = [
 ];
 
 const Images = () => {
+
+  let {imagesData, setImagesData } = useContext(OverallContext);
+
+  // const items =imagesData.map(source=>  <img
+  //   style={styleImages}
+  //   src={source}
+  //   onDragStart={handleDragStart}
+  // />)
+
   return (
     <div
       style={{
