@@ -1,25 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import OverallContext from "../context/overallContext";
+import LoaderContext from "../context/loader";
 
 const HandleColorSingleElementBackGround = (status) => {
   switch (status) {
-    case 1:
+    case 0:
       return "#fc4c4c";
-    case 2:
+    case 1:
       return "#8ac24b";
-    case 3:
+    case 2:
       return "#EAA221";
   }
 };
 
 const HandleColorSingleElementBorder = (status) => {
   switch (status) {
-    case 1:
+    case 0:
       return "#dc143c";
-    case 2:
+    case 1:
       return "#056608";
-    case 3:
+    case 2:
       return "#C04000";
   }
 };
@@ -37,11 +38,12 @@ const SingleTag = styled.div`
 
 function Reviews() {
   let { state, setState } = useContext(OverallContext);
+  let { loader, setLoader } = useContext(LoaderContext);
   const [dummyState, setdummyState] = useState([]);
 
   useEffect(() => {
     setdummyState(state.reviews);
-  }, []);
+  }, [loader]);
 
   const [overall, setOverall] = useState({
     positive: 0,
@@ -78,7 +80,7 @@ function Reviews() {
           });
       }
     });
-  }, []);
+  }, [loader]);
 
   // set shrinked up and every is shrinked up by default
   useEffect(() => {
@@ -87,9 +89,11 @@ function Reviews() {
         return { ...prev, [id]: true };
       });
     });
-  }, []);
+  }, [loader]);
 
-  return (
+  return loader ? (
+    <p>Loading</p>
+  ) : (
     <div style={{ marginBottom: "30px" }}>
       {overall.negative !== 0 ? (
         <>

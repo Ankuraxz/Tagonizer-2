@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import NavBar from "./NavBar";
 
 import OverallContext from "./context/overallContext";
+import LoaderContext from "./context/loader";
 
 import Tags from "./Tags";
 import Reviews from "./Reviews";
@@ -46,6 +47,7 @@ function App() {
   const [customerImages, setCustomerImages] = useState([]);
   const [reviewsData, setData] = useState();
   const [imagesData, setImagesData] = useState();
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     fetch(url)
@@ -98,6 +100,23 @@ function App() {
     });
   }
 
+  function processTagsAPIResponse(reviewsData) {
+    Object.entries(reviewsData.tags).map((element) => {
+      setState((prev) => {
+        return {
+          ...prev,
+          tags: [
+            ...prev.tags,
+            {
+              title: element[0],
+              good: Boolean(element[1]),
+            },
+          ],
+        };
+      });
+    });
+  }
+
   useEffect(() => {
     if (reviews.length !== 0) {
       //Reviews api request
@@ -114,6 +133,13 @@ function App() {
           console.log("review", res.data);
           reviewsRes = res.data;
           processReviewAPIResponse(reviewsRes, reviews);
+          return reviewsRes;
+        })
+        .then((reviewsRes) => {
+          processTagsAPIResponse(reviewsRes);
+        })
+        .then(() => {
+          setLoader(false);
         });
       //Image api request
       const imgRequest = {
@@ -135,22 +161,24 @@ function App() {
   }, [reviews]);
   return (
     <OverallContext.Provider value={{ state, setState }}>
-      <div style={overallDiVStyles}>
-        <Router>
-          <NavBar />
-          <Switch>
-            <Route path="/" exact>
-              <Tags />
-            </Route>
-            <Route path="/reviews" exact>
-              <Reviews />
-            </Route>
-            <Route path="/images" exact>
-              <p>images</p>
-            </Route>
-          </Switch>
-        </Router>
-      </div>
+      <LoaderContext.Provider value={{ loader, setLoader }}>
+        <div style={overallDiVStyles}>
+          <Router>
+            <NavBar />
+            <Switch>
+              <Route path="/" exact>
+                <Tags />
+              </Route>
+              <Route path="/reviews" loader={loader} exact>
+                <Reviews />
+              </Route>
+              <Route path="/images" exact>
+                <p>images</p>
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+      </LoaderContext.Provider>
     </OverallContext.Provider>
   );
 }
