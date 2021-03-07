@@ -32,7 +32,6 @@ function App() {
       setUrl(items.tab);
       sellerImages = [...items.sellerImages];
       numRatings = items.numRatings;
-      console.log(url);
     }
   );
 
@@ -49,7 +48,6 @@ function App() {
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    console.log("URL USE EFFECT");
     fetch(url)
       .then((response) => response.text())
       .then((text) => {
@@ -78,13 +76,10 @@ function App() {
 
         setCustomerImages(imgSrc);
         setReviews(arr);
-        console.log("array of input arrays", arr);
       });
   }, [url]);
 
   function processReviewAPIResponse(reviewsData, reviews) {
-    console.log("review");
-    console.log("state", state);
     reviews.map((review, index) => {
       setState((prev) => {
         return {
@@ -120,7 +115,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log("USE EFFECT BUILDING");
     if (reviews.length !== 0) {
       //Reviews api request
       const reviewsObj = {
@@ -159,8 +153,8 @@ function App() {
         .then((res) => {
           console.log("images", res.data);
           imagesRes = res.data;
+          console.log(imagesRes);
         });
-      console.log(reviews);
       //setData(reviewsData);
       setImagesData();
     }

@@ -89,7 +89,6 @@ function Reviews() {
     });
   }, []);
 
-  console.log("state in review", state);
   return (
     <div style={{ marginBottom: "30px" }}>
       {overall.negative !== 0 ? (
