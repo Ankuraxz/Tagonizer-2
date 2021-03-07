@@ -16,7 +16,7 @@ const overallDiVStyles = {
 };
 
 let url = "";
-let sellerImages = [];
+let sellerImages ;
 chrome.storage.sync.get(["tab", "sellerImages"], function(items) {
   console.log("Data retrieved in react", items);
   url = items.tab;
@@ -28,7 +28,8 @@ function App() {
   const api = "https://tagonizer.herokuapp.com";
   const [reviews, setReviews] = useState([]);
   const [customerImages, setCustomerImages] = useState([]);
-  const [data , setData] = useState();
+  const [reviewsData , setData] = useState();
+  const [imagesData , setImagesData] = useState();
 
   useEffect(() => {
     fetch(url)
@@ -58,18 +59,44 @@ function App() {
       });
   }, [url]);
 
+
+
  useEffect(()=> {
-   if(reviews.length){
+  console.log(reviews.length)
+  if(reviews.length!==0){
+
+   //Reviews api request
    const reviewsObj = {
     "comments": reviews
    }
+   let reviewsRes;
+   let imagesRes;
+
    console.log(reviewsObj)
   axios.post(api + "/predict", reviewsObj)
   .then(res => {
     console.log(res.data);
-    setData(res.data);
+    reviewsRes = res.data;
+  
   });
+
+//Image api request
+  const imgRequest={
+    "seller_img": sellerImages,
+    "customer_img": customerImages
+  }
+  console.log(imgRequest)
+  axios.post(api + "/image", imgRequest)
+  .then(res=> {
+    console.log(res.data);
+    imagesRes = res.data;
+  })
+
+  setData(reviewsData);
+  setImagesData()
+
 }
+
  },[reviews])
 
   const arrayTemp = [
