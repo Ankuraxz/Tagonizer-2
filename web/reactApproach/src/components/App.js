@@ -17,10 +17,12 @@ const overallDiVStyles = {
 
 let url = "";
 let sellerImages ;
-chrome.storage.sync.get(["tab", "sellerImages"], function(items) {
+let numRatings;
+chrome.storage.sync.get(["tab", "sellerImages", "numRatings"], function(items) {
   console.log("Data retrieved in react", items);
   url = items.tab;
   sellerImages = [...items.sellerImages];
+  numRatings = items.numRatings;
   console.log(url);
 });
 
@@ -32,6 +34,7 @@ function App() {
   const [imagesData , setImagesData] = useState();
 
   useEffect(() => {
+    
     fetch(url)
       .then((response) => response.text())
       .then((text) => {
@@ -51,6 +54,10 @@ function App() {
 
         //fetch images
         const imgSrc = [];
+      //  console.log( $(".review-image-tile-section .review-image-tile").children());
+      //  $(".review-image-tile-section .review-image-tile").children().each(function(i){
+      //    console.log($(this).attr("src"))
+      //  })
         imgSrc.push($(".review-image-tile-section .review-image-tile").attr("src"))
         console.log(imgSrc);
 
