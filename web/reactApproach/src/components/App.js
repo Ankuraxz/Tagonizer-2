@@ -22,20 +22,20 @@ const overallDiVStyles = {
   padding: "20px",
 };
 
-let url = "";
-let sellerImages;
-let numRatings;
-chrome.storage.sync.get(
-  ["tab", "sellerImages", "numRatings"],
-  function (items) {
-    url = items.tab;
-    sellerImages = [...items.sellerImages];
-    numRatings = items.numRatings;
-    console.log(url);
-  }
-);
-
 function App() {
+  const [url, setUrl] = useState("");
+  let sellerImages;
+  let numRatings;
+  chrome.storage.sync.get(
+    ["tab", "sellerImages", "numRatings"],
+    function (items) {
+      setUrl(items.tab);
+      sellerImages = [...items.sellerImages];
+      numRatings = items.numRatings;
+      console.log(url);
+    }
+  );
+
   const apiReview = "https://tagonizer-text.azurewebsites.net/api/HttpTrigger1";
   const apiImage =
     "https://tagonizer-image.azurewebsites.net/api/Tagonizer-image";
@@ -45,11 +45,11 @@ function App() {
     tags: [],
   });
   const [customerImages, setCustomerImages] = useState([]);
-  const [reviewsData, setData] = useState();
   const [imagesData, setImagesData] = useState();
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
+    console.log("URL USE EFFECT");
     fetch(url)
       .then((response) => response.text())
       .then((text) => {
@@ -83,6 +83,8 @@ function App() {
   }, [url]);
 
   function processReviewAPIResponse(reviewsData, reviews) {
+    console.log("review");
+    console.log("state", state);
     reviews.map((review, index) => {
       setState((prev) => {
         return {
@@ -118,6 +120,7 @@ function App() {
   }
 
   useEffect(() => {
+    console.log("USE EFFECT BUILDING");
     if (reviews.length !== 0) {
       //Reviews api request
       const reviewsObj = {
@@ -132,6 +135,9 @@ function App() {
         .then((res) => {
           console.log("review", res.data);
           reviewsRes = res.data;
+          return reviewsRes;
+        })
+        .then((reviewsRes) => {
           processReviewAPIResponse(reviewsRes, reviews);
           return reviewsRes;
         })
@@ -155,7 +161,7 @@ function App() {
           imagesRes = res.data;
         });
       console.log(reviews);
-      setData(reviewsData);
+      //setData(reviewsData);
       setImagesData();
     }
   }, [reviews]);
@@ -167,10 +173,10 @@ function App() {
             <NavBar />
             <Switch>
               <Route path="/" exact>
-                <Tags />
+                {loader ? <p>Loading...</p> : <Tags />}
               </Route>
               <Route path="/reviews" loader={loader} exact>
-                <Reviews />
+                {loader ? <p>Loading...</p> : <Reviews />}
               </Route>
               <Route path="/images" exact>
                 <p>images</p>
