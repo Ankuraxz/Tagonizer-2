@@ -3,12 +3,16 @@ import azure.functions as func
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.core.credentials import AzureKeyCredential
+from functools import lru_cache
+import asyncio
 import os
 import json
 
 KEY = os.environ["VKEY"]
 ENDPOINT = os.environ["VENDPOINT"]
 LOCATION = os.environ["LOCATION"]
+
+computervision_client = ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
 def tagger(url, client):
     tags = []
@@ -25,6 +29,10 @@ def url_cleaner(url):
     id = url[49:].split(".")[0]
     return (url[:49] + id + ".jpg")
 
+# def authenticate_client():
+#     return ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+
+@lru_cache(maxsize = 128)
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
@@ -52,7 +60,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         good_images = []
         c_tags = []
 
-        computervision_client = ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+        # with authenticate_client() as computervision_client:
 
         seller_img_resized = []
         for ix in seller_img:
