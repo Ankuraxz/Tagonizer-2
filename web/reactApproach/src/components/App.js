@@ -8,16 +8,19 @@ import axios from "axios";
 
 import NavBar from "./NavBar";
 
+
+import Layout from "../components/Layout"
+
 import OverallContext from "./context/overallContext";
 
 import Tags from "./Tags";
 import Reviews from "./Reviews";
 
 const overallDiVStyles = {
-  width: "400px",
-  height: "545px",
+ // width: "400px",
+  //height: "545px",
   overflowY: "scroll",
-  padding: "20px",
+ // padding: "20px",
 };
 
 let url = "";
@@ -69,7 +72,7 @@ function App() {
         setCustomerImages(imgSrc);
         setReviews(arr);
       });
-  }, [url]);
+  }, []);
 
 
 
@@ -85,7 +88,7 @@ function App() {
    let imagesRes;
 
    console.log(reviewsObj)
-  axios.post(api + "/predict", reviewsObj)
+  axios.post("https://tagonizer-text.azurewebsites.net/api/HttpTrigger1", reviewsObj)
   .then(res => {
     console.log(res.data);
     reviewsRes = res.data;
@@ -98,14 +101,14 @@ function App() {
     "customer_img": customerImages
   }
   console.log(imgRequest)
-  axios.post(api + "/image", imgRequest)
+  axios.post("https://tagonizer-image.azurewebsites.net/api/Tagonizer-image", imgRequest)
   .then(res=> {
     console.log(res.data);
     imagesRes = res.data;
   })
 
   setData(reviewsData);
-  setImagesData()
+  setImagesData(imagesRes)
 
 }
 
@@ -130,7 +133,9 @@ function App() {
   const [state, setState] = useState(objectLatterFetched);
   return (
     <OverallContext.Provider value={{ state, setState }}>
+      <Layout>
       <div style={overallDiVStyles}>
+     
         <Router>
           <NavBar />
           <Switch>
@@ -143,9 +148,11 @@ function App() {
             <Route path="/images" exact>
               <p>images</p>
             </Route>
+           
           </Switch>
         </Router>
       </div>
+      </Layout>
     </OverallContext.Provider>
   );
 }
