@@ -9,40 +9,35 @@ import { v4 as uuidv4 } from "uuid";
 
 import NavBar from "./NavBar";
 
-
-import Layout from "../components/Layout"
+import Layout from "../components/Layout";
 
 import OverallContext from "./context/overallContext";
 import LoaderContext from "./context/loader";
 
 import Tags from "./Tags";
 import Reviews from "./Reviews";
+import Images from "./Images";
 
 const overallDiVStyles = {
   // width: "400px",
-//  height: "500px",
- // overflowY: "auto",
+  //  height: "500px",
+  // overflowY: "auto",
   padding: "20px",
-  backgroundColor: "inherit"
+  display: "flex",
+  flexDirection: "column",
+  backgroundColor: "inherit",
 };
 
-let url;
-let sellerImages;
-let numRatings;
+function App() {
+  const [url, setUrl] = useState("");
+  let sellerImages;
+  let numRatings;
 
-chrome.storage.sync.get(
-  ["tab", "sellerImages"],
-  function (items) {
-   url = items.tab;
+  chrome.storage.sync.get(["tab", "sellerImages"], function (items) {
+    setUrl(items.tab);
     sellerImages = [...items.sellerImages];
     numRatings = items.numRatings;
-  }
-);
-
-function App() {
-//  const [url, setUrl] = useState("");
- 
-
+  });
 
   const apiReview = "https://tagonizer-text.azurewebsites.net/api/HttpTrigger1";
   const apiImage =
@@ -173,23 +168,25 @@ function App() {
     <OverallContext.Provider value={{ state, setState }}>
       <LoaderContext.Provider value={{ loader, setLoader }}>
         <Layout>
-        <div style={overallDiVStyles}>
-          <Router>
-            <NavBar />
-            
-            <Switch>
-              <Route path="/" exact>
-                {loader ? <p>Loading...</p> : <Tags />}
-              </Route>
-              <Route path="/reviews" loader={loader} exact>
-                {loader ? <p>Loading...</p> : <Reviews />}
-              </Route>
-              <Route path="/images" exact>
-                <p>images</p>
-              </Route>
-            </Switch>
-          </Router>
-        </div>
+
+          <div style={overallDiVStyles}>
+            <Router>
+              <NavBar />
+              {/* <Tags /> */}
+              <Switch>
+                <Route path="/" exact>
+                  {loader ? <p>Loading...</p> : <Tags />}
+                </Route>
+                <Route path="/reviews" loader={loader} exact>
+                  {loader ? <p>Loading...</p> : <Reviews />}
+                </Route>
+                <Route path="/images" exact>
+                  <Images />
+                </Route>
+              </Switch>
+            </Router>
+          </div>
+
         </Layout>
       </LoaderContext.Provider>
     </OverallContext.Provider>
