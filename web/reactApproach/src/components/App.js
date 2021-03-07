@@ -26,18 +26,23 @@ const overallDiVStyles = {
   backgroundColor: "inherit"
 };
 
+let url;
+let sellerImages;
+let numRatings;
+
+chrome.storage.sync.get(
+  ["tab", "sellerImages"],
+  function (items) {
+   url = items.tab;
+    sellerImages = [...items.sellerImages];
+    numRatings = items.numRatings;
+  }
+);
+
 function App() {
-  const [url, setUrl] = useState("");
-  let sellerImages;
-  let numRatings;
-  chrome.storage.sync.get(
-    ["tab", "sellerImages", "numRatings"],
-    function (items) {
-      setUrl(items.tab);
-      sellerImages = [...items.sellerImages];
-      numRatings = items.numRatings;
-    }
-  );
+//  const [url, setUrl] = useState("");
+ 
+
 
   const apiReview = "https://tagonizer-text.azurewebsites.net/api/HttpTrigger1";
   const apiImage =
@@ -81,7 +86,7 @@ function App() {
         setCustomerImages(imgSrc);
         setReviews(arr);
       });
-  }, []);
+  }, [url]);
 
   function processReviewAPIResponse(reviewsData, reviews) {
     reviews.map((review, index) => {
