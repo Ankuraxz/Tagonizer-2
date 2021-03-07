@@ -21,7 +21,6 @@ KEY = os.environ["VKEY"]
 ENDPOINT = os.environ["VENDPOINT"]
 LOCATION = os.environ["LOCATION"]
 
-
 app = FastAPI(
     title="Tagonizer",
     description="API for Tagonizer",

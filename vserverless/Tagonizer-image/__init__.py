@@ -12,7 +12,6 @@ KEY = os.environ["VKEY"]
 ENDPOINT = os.environ["VENDPOINT"]
 LOCATION = os.environ["LOCATION"]
 
-
 computervision_client = ComputerVisionClient(ENDPOINT, CognitiveServicesCredentials(KEY))
 
 def tagger(url, client):
@@ -28,7 +27,7 @@ def tagger(url, client):
 
 def url_cleaner(url):
     id = url[49:].split(".")[0]
-    # print(id)
+
     return (url[:49] + id + ".jpg")
 
 # def authenticate_client():
@@ -68,6 +67,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         for ix in seller_img:
             ix = url_cleaner(ix)
             seller_img_resized.append(ix)
+
             try:
                 s_tags = tagger(ix, computervision_client)
                 for iw in s_tags:
@@ -93,6 +93,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 pass
 
 
+
         if len(good_images) == 0:
             good_images = seller_img_resized
 
@@ -102,10 +103,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
         return json.dumps(docResult)
 
-
     else:
         return func.HttpResponse("Failure: Pass Lists/Arrays")
-
-
 
 
