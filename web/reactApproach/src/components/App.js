@@ -14,27 +14,65 @@ const overallDiVStyles = {
   padding: "20px",
 };
 
-let url="";
-chrome.storage.sync.get(['tab'], function(items) {
-  console.log('Settings retrieved in react', items);
-  url= items.tab;
-  console.log(url)
+let url = "";
+let sellerImages = [];
+chrome.storage.sync.get(["tab", "sellerImages"], function(items) {
+  console.log("Settings retrieved in react", items);
+  url = items.tab;
+  sellerImages = [...items.sellerImages];
+  console.log(url);
 });
 
-
-
 function App() {
+  const [reviews, setReviews] = useState([]);
+  const [customerImages, setCustomerImages] = useState([]);
 
-  useEffect(() =>{
-       
-           fetch(url)
-           .then(response => response.text() )
-          .then(text => {
-            const $ = cheerio.load(text);
-            console.log( $("#cm_cr-review_list .review-text-content").children().text().trim())
-          })
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.text())
+      .then((text) => {
+        const $ = cheerio.load(text);
+        const arr = [];
+        $("#cm_cr-review_list .review-text-content")
+          .children()
+          .each(function(i) {
+            arr.push(
+              $(this)
+                .text()
+                .trim()
+            );
+          });
+        console.log(arr);
 
-  },[url] )
+        //fetch images
+        const imgSrc = [];
+        //imgSrc.push($(".review-image-tile-section .review-image-tile").attr("src"))
+        const images = document.querySelectorAll(
+          ".review-image-tile-section .review-image-tile"
+        );
+        console.log(images);
+        images.forEach((ele) => {
+          imgSrc.push(ele.getAttribute("src"));
+        });
+
+        console.log(imgSrc);
+        setCustomerImages(imgSrc);
+        setReviews(arr);
+      });
+  }, [url]);
+
+  // useEffect(() => {
+  //     async function getImages () {
+  //       const response = await fetch(url);
+  //       const text = await response.text();
+  //       const $ = cheerio.load(text);
+  //       console.log( $(".review-image-tile-section .review-image-tile").children().attr())
+  //     }
+
+  //    getImages();
+
+  
+  // }, [url]);
 
   const arrayTemp = [
     [
@@ -51,7 +89,6 @@ function App() {
     ],
   ];
   const [state, setState] = useState(arrayTemp);
-
 
   return (
     <OverallContext.Provider value={{ state, setState }}>

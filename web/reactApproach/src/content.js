@@ -5,6 +5,12 @@ console.log(url);
 //   tab : url
 //   });
 
-chrome.storage.sync.set({'tab': url}, function() {
+const sellerImages=[];
+const seller = document.querySelectorAll(".imageThumbnail .a-button-text img");
+seller.forEach((ele) => sellerImages.push(ele.getAttribute("src")));
+console.log(sellerImages);
+
+
+chrome.storage.sync.set({'tab': url, 'sellerImages' : sellerImages}, function() {
   console.log('data saved');
 });
