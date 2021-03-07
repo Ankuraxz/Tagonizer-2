@@ -29,14 +29,14 @@ const overallDiVStyles = {
   backgroundColor: "inherit",
 };
 
-let sellerImages;
 let numRatings;
 
 function App() {
   const [url, setUrl] = useState("");
+  const [sellerImages, setSellerImages] = useState({});
   chrome.storage.sync.get(["tab", "sellerImages"], function (items) {
     setUrl(items.tab);
-    sellerImages = [...items.sellerImages];
+    setSellerImages([...items.sellerImages]);
     numRatings = items.numRatings;
   });
   const apiReview = "https://tagonizer-text.azurewebsites.net/api/HttpTrigger1";
@@ -149,7 +149,7 @@ function App() {
         seller_img: sellerImages,
         customer_img: customerImages,
       };
-      console.log(imgRequest);
+      console.log("imgRequest", imgRequest);
       axios
         .post(apiImage, imgRequest, {
           headers: { "Access-Control-Allow-Origin": "*" },
