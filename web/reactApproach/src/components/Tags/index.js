@@ -36,52 +36,90 @@ function Tags() {
   //let { loader, setLoader } = useContext(LoaderContext);
   const [dummyState, setDummyState] = useState([]);
 
+  const [overall, setOverall] = useState({
+    positive: 0,
+    negative: 0,
+  });
+
+  useEffect(() => {
+    state.tags.map(({ good }) => {
+      switch (good) {
+        case true:
+          return setOverall((prev) => {
+            return {
+              ...prev,
+              negative: prev.negative + 1,
+            };
+          });
+        case false:
+          return setOverall((prev) => {
+            return {
+              ...prev,
+              positive: prev.positive + 1,
+            };
+          });
+      }
+    });
+  }, []);
+
   useEffect(() => {
     setDummyState(state.tags);
   }, []);
-
+  console.log(state.tags);
   return (
     <div>
-      <FlexRowWrapper>
-        <img
-          style={{ width: "32px", height: "32px" }}
-          src="../../positive.png"
-        />
-        <h3 style={{ marginLeft: "15px" }}>Positive</h3>
-      </FlexRowWrapper>
-      <SingleTagWrapper>
-        {dummyState
-          .filter((tag) => {
-            return tag.good === true;
-          })
-          .map((positiveReview) => {
-            return (
-              <SingleTag good={positiveReview.good}>
-                {positiveReview.title}
-              </SingleTag>
-            );
-          })}
-      </SingleTagWrapper>
-      <FlexRowWrapper>
-        <img
-          style={{ width: "32px", height: "32px" }}
-          src="../../negative.png"
-        />
-        <h3 style={{ marginLeft: "15px" }}>Negative</h3>
-      </FlexRowWrapper>
-      <SingleTagWrapper>
-        {dummyState
-          .filter((tag) => {
-            return tag.good === false;
-          })
-          .map((negativeReview) => {
-            return (
-              <SingleTag good={negativeReview.good}>
-                {negativeReview.title}
-              </SingleTag>
-            );
-          })}
-      </SingleTagWrapper>
+      {overall.negative !== 0 ? (
+        <>
+          <FlexRowWrapper>
+            <img
+              style={{ width: "32px", height: "32px" }}
+              src="../../positive.png"
+            />
+            <h3 style={{ marginLeft: "15px" }}>Positive</h3>
+          </FlexRowWrapper>
+          <SingleTagWrapper>
+            {dummyState
+              .filter((tag) => {
+                return tag.good === true;
+              })
+              .map((positiveReview) => {
+                return (
+                  <SingleTag good={positiveReview.good}>
+                    {positiveReview.title}
+                  </SingleTag>
+                );
+              })}
+          </SingleTagWrapper>
+        </>
+      ) : (
+        <h3>Sorry we could not find poitive tags</h3>
+      )}
+      {overall.positive !== 0 ? (
+        <>
+          <FlexRowWrapper>
+            <img
+              style={{ width: "32px", height: "32px" }}
+              src="../../negative.png"
+            />
+            <h3 style={{ marginLeft: "15px" }}>Negative</h3>
+          </FlexRowWrapper>
+          <SingleTagWrapper>
+            {dummyState
+              .filter((tag) => {
+                return tag.good === false;
+              })
+              .map((negativeReview) => {
+                return (
+                  <SingleTag good={negativeReview.good}>
+                    {negativeReview.title}
+                  </SingleTag>
+                );
+              })}
+          </SingleTagWrapper>
+        </>
+      ) : (
+        <h3>Sorry we could not find negative tags</h3>
+      )}
     </div>
   );
 }
